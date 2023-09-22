@@ -24,7 +24,7 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyImageHandler
 
         public async Task<ActionResult> Handle(UpdatePropertyImageCommand request, CancellationToken cancellationToken)
         {
-            var existingPropertyImage = await _context.PropertyImages.FindAsync(request.PropertyImageId);
+            var existingPropertyImage = await _context.PropertyImages.FindAsync(request.dto.PropertyImageId);
 
             if (existingPropertyImage == null)
             {

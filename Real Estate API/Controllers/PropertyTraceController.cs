@@ -27,9 +27,9 @@ namespace Real_Estate_API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePropertyTrace(Guid id, [FromForm] UpdatePropertyTraceDto dto)
+        public async Task<IActionResult> UpdatePropertyTrace([FromForm] UpdatePropertyTraceDto dto)
         {
-            return await _mediator.Send(new UpdatePropertyTraceCommand { PropertyTraceId = id, dto = dto });
+            return await _mediator.Send(new UpdatePropertyTraceCommand { dto = dto });
         }
 
         [HttpGet("{propertyId}")]

@@ -11,7 +11,6 @@ namespace RealEstate.Mediator.Commands.Owner
 {
     public record UpdatePropertyImageCommand : IRequest<ActionResult>
     {
-        public Guid PropertyImageId { get; set; }
         public UpdatePropertyImagesDto dto { get; set; }
     }
 }

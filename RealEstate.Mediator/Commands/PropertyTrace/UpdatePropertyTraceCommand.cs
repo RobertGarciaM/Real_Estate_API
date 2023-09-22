@@ -11,7 +11,6 @@ namespace RealEstate.Mediator.Commands.PropertyTraceCommand
 {
     public record UpdatePropertyTraceCommand : IRequest<ActionResult>
     {
-        public Guid PropertyTraceId { get; set; }
         public UpdatePropertyTraceDto dto { get; set; }
     }
 }

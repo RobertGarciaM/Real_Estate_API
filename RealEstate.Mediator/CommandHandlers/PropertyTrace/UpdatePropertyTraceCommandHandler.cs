@@ -18,7 +18,7 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyTraceHandler
 
         public async Task<ActionResult> Handle(UpdatePropertyTraceCommand request, CancellationToken cancellationToken)
         {
-            var owner = await _context.PropertyTraces.FindAsync(request.PropertyTraceId);
+            var owner = await _context.PropertyTraces.FindAsync(request.dto.Id);
             if (owner == null)
             {
                 return new NotFoundResult();

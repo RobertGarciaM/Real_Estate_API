@@ -12,5 +12,9 @@ namespace RealEstate.Mediator.Query.Owner
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
+        public GetPagedOwnersQuery(int page, int pageSize) {
+            Page = page > 0 ? page : 1;
+            PageSize = PageSize > 0 ? pageSize : 1;
+        }
     }
 }

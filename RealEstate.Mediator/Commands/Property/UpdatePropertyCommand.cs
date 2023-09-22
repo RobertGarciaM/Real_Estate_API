@@ -9,9 +9,7 @@ using System.Threading.Tasks;
 
 namespace RealEstate.Mediator.Commands.PropertyCommand
 {
-    public record UpdatePropertyCommand : IRequest<ActionResult>
-    {
-        public Guid PropertyId { get; set; }
+    public record UpdatePropertyCommand : IRequest<ActionResult> { 
         public UpdatePropertyDto UpdateDto { get; set; }
     }
 }

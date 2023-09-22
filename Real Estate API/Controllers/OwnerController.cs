@@ -26,7 +26,7 @@ namespace Real_Estate_API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPagedOwners(int page, int pageSize)
         {
-            var result = await _mediator.Send(new GetPagedOwnersQuery { Page = page, PageSize = pageSize });
+            var result = await _mediator.Send(new GetPagedOwnersQuery(page, pageSize));
             return Ok(result);
         }
 
@@ -36,10 +36,10 @@ namespace Real_Estate_API.Controllers
             return await _mediator.Send(new DeleteOwnerCommand { OwnerId = id });
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateOwner(Guid id, [FromForm] UpdateOwnerDto dto)
+        [HttpPut]
+        public async Task<IActionResult> UpdateOwner([FromForm] UpdateOwnerDto dto)
         {
-            return await _mediator.Send(new UpdateOwnerCommand { OwnerId = id, UpdateDto = dto });
+            return await _mediator.Send(new UpdateOwnerCommand { UpdateDto = dto });
         }
     }
 }

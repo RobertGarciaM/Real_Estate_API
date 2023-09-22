@@ -31,10 +31,10 @@ namespace Real_Estate_API.Controllers
             return await _mediator.Send(new GetPropertyImagesByPropertyIdQuery(propertyId, page, pageSize));
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateOwner(Guid id, [FromForm] UpdatePropertyImagesDto dto)
+        [HttpPut]
+        public async Task<IActionResult> UpdateOwner([FromForm] UpdatePropertyImagesDto dto)
         {
-            return await _mediator.Send(new UpdatePropertyImageCommand { PropertyImageId = id, dto = dto });
+            return await _mediator.Send(new UpdatePropertyImageCommand { dto = dto });
         }
 
         [HttpDelete("{propertyImageId}")]

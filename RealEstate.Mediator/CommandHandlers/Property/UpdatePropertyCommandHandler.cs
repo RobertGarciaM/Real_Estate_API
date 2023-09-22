@@ -23,7 +23,7 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyHandler
 
         public async Task<ActionResult> Handle(UpdatePropertyCommand request, CancellationToken cancellationToken)
         {
-            var property = await _context.Properties.FirstOrDefaultAsync(p => p.IdProperty == request.PropertyId, cancellationToken);
+            var property = await _context.Properties.FirstOrDefaultAsync(p => p.IdProperty == request.UpdateDto.Id, cancellationToken);
 
             if (property == null)
             {

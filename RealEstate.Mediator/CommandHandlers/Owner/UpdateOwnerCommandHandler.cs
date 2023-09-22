@@ -23,7 +23,7 @@ namespace RealEstate.Mediator.Handlers.OwnerHandler
 
         public async Task<ActionResult> Handle(UpdateOwnerCommand request, CancellationToken cancellationToken)
         {
-            var owner = await _context.Owners.FindAsync(request.OwnerId);
+            var owner = await _context.Owners.FindAsync(request.UpdateDto.Id);
             if (owner == null)
             {
                 return new NotFoundResult();
