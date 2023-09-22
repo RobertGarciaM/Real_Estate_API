@@ -1,0 +1,15 @@
+C:\Users\rgarcia\Downloads\Test_File\Real Estate API\DataAccess\bin\Debug\net6.0\DataAccess.deps.json
+C:\Users\rgarcia\Downloads\Test_File\Real Estate API\DataAccess\bin\Debug\net6.0\DataAccess.dll
+C:\Users\rgarcia\Downloads\Test_File\Real Estate API\DataAccess\bin\Debug\net6.0\DataAccess.pdb
+C:\Users\rgarcia\Downloads\Test_File\Real Estate API\DataAccess\obj\Debug\net6.0\DataAccess.csproj.AssemblyReference.cache
+C:\Users\rgarcia\Downloads\Test_File\Real Estate API\DataAccess\obj\Debug\net6.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rgarcia\Downloads\Test_File\Real Estate API\DataAccess\obj\Debug\net6.0\DataAccess.AssemblyInfoInputs.cache
+C:\Users\rgarcia\Downloads\Test_File\Real Estate API\DataAccess\obj\Debug\net6.0\DataAccess.AssemblyInfo.cs
+C:\Users\rgarcia\Downloads\Test_File\Real Estate API\DataAccess\obj\Debug\net6.0\DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\rgarcia\Downloads\Test_File\Real Estate API\DataAccess\obj\Debug\net6.0\DataAccess.dll
+C:\Users\rgarcia\Downloads\Test_File\Real Estate API\DataAccess\obj\Debug\net6.0\refint\DataAccess.dll
+C:\Users\rgarcia\Downloads\Test_File\Real Estate API\DataAccess\obj\Debug\net6.0\DataAccess.pdb
+C:\Users\rgarcia\Downloads\Test_File\Real Estate API\DataAccess\obj\Debug\net6.0\ref\DataAccess.dll
+C:\Users\rgarcia\Downloads\Test_File\Real Estate API\DataAccess\bin\Debug\net6.0\DataModels.dll
+C:\Users\rgarcia\Downloads\Test_File\Real Estate API\DataAccess\bin\Debug\net6.0\DataModels.pdb
+C:\Users\rgarcia\Downloads\Test_File\Real Estate API\DataAccess\obj\Debug\net6.0\DataAccess.csproj.CopyComplete
