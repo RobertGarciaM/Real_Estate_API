@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RealEstate.Mediator.QueryHandlers.Owner
+namespace RealEstate.Mediator.Query.Owner
 {
-    public record GetPagedOwnersCommand : IRequest<IEnumerable<OwnerDto>>
+    public record GetPagedOwnersQuery : IRequest<IEnumerable<OwnerDto>>
     {
         public int Page { get; set; }
         public int PageSize { get; set; }

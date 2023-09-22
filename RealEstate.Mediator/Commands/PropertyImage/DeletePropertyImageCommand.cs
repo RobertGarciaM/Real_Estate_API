@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RealEstate.Mediator.Commands.PropertyCommand
+namespace RealEstate.Mediator.Commands.PropertyImageCommand
 {
-    public record DeletePropertyCommand : IRequest<ActionResult>
+    public record DeletePropertyImageCommand : IRequest<ActionResult>
     {
-        public Guid PropertyId { get; set; }
+        public Guid PropertyImageId { get; set; }
     }
 }

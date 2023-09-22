@@ -3,14 +3,7 @@ using DataModels;
 using DTOModels;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using RealEstate.Mediator.Commands.Owner;
-using RealEstate.Mediator.Query;
-using RealEstate.Mediator.Query.Property;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RealEstate.Mediator.Query.PropertyCommand;
 
 namespace RealEstate.Mediator.QueryHandlers.PropertyQuery
 {

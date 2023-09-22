@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RealEstate.Mediator.Commands.Owner;
-using RealEstate.Mediator.QueryHandlers.Owner;
+using RealEstate.Mediator.Query.Owner;
 
 namespace Real_Estate_API.Controllers
 {
@@ -26,7 +26,7 @@ namespace Real_Estate_API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPagedOwners(int page, int pageSize)
         {
-            var result = await _mediator.Send(new GetPagedOwnersCommand { Page = page, PageSize = pageSize });
+            var result = await _mediator.Send(new GetPagedOwnersQuery { Page = page, PageSize = pageSize });
             return Ok(result);
         }
 

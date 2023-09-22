@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RealEstate.Mediator.Commands.Property
+namespace RealEstate.Mediator.Commands.PropertyCommand
 {
-    public class UpdatePropertyCommand : IRequest<ActionResult>
+    public record UpdatePropertyCommand : IRequest<ActionResult>
     {
         public Guid PropertyId { get; set; }
         public UpdatePropertyDto UpdateDto { get; set; }

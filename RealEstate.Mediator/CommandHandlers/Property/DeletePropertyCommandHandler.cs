@@ -1,14 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using RealEstate.Mediator.Commands.Owner;
-using RealEstate.Mediator.Commands.Property;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RealEstate.Mediator.Commands.PropertyCommand;
 
-namespace RealEstate.Mediator.CommandHandlers.Property
+namespace RealEstate.Mediator.CommandHandlers.PropertyHandler
 {
     internal class DeletePropertyCommandHandler : IRequestHandler<DeletePropertyCommand, ActionResult>
     {

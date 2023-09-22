@@ -2,8 +2,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RealEstate.Mediator.Commands.Owner;
-using RealEstate.Mediator.Commands.Property;
-using RealEstate.Mediator.Query.Property;
+using RealEstate.Mediator.Commands.PropertyCommand;
+using RealEstate.Mediator.Query.PropertyCommand;
 
 namespace Real_Estate_API.Controllers
 {

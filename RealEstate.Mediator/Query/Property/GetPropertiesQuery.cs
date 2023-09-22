@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RealEstate.Mediator.Query.Property
+namespace RealEstate.Mediator.Query.PropertyCommand
 {
     public class GetPropertiesQuery : IRequest<IEnumerable<PropertyDto>>
     {

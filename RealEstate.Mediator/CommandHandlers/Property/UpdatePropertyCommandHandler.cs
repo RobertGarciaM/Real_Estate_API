@@ -3,15 +3,10 @@ using DataModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RealEstate.Mediator.Commands.Property;
+using RealEstate.Mediator.Commands.PropertyCommand;
 using RealEstate.Mediator.Query.Owner;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace RealEstate.Mediator.CommandHandlers.Property
+namespace RealEstate.Mediator.CommandHandlers.PropertyHandler
 {
     internal class UpdatePropertyCommandHandler : IRequestHandler<UpdatePropertyCommand, ActionResult>
     {

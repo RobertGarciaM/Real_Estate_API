@@ -3,7 +3,7 @@ using DataModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RealEstate.Mediator.Commands.Owner;
-using RealEstate.Mediator.Commands.Property;
+using RealEstate.Mediator.Commands.PropertyCommand;
 using RealEstate.Mediator.Query.Owner;
 using RealEstate.Mediator.QueryHandlers.Owner;
 

@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RealEstate.Mediator.Commands.Property
+namespace RealEstate.Mediator.Commands.PropertyCommand
 {
-    public class CreatePropertyCommand : IRequest<ActionResult>
+    public record CreatePropertyCommand : IRequest<ActionResult>
     {
         public CreatePropertyCommand(CreatePropertyDto dto)
         {
