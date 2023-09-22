@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RealEstate.Mediator.Commands.PropertyImageCommand
 {
-    public struct DeletePropertyImagesByPropertyIdCommand : IRequest<ActionResult>
+    public record DeletePropertyImagesByPropertyIdCommand : IRequest<ActionResult>
     {
         public Guid PropertyId { get; set; }
     }

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RealEstate.Mediator.Commands.PropertyImage
+namespace RealEstate.Mediator.CommandHandlers.PropertyImage
 {
     internal class UpdatePropertyImageCommandHandler : IRequestHandler<UpdatePropertyImageCommand, ActionResult>
     {
