@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RealEstate.Mediator.Commands.Owner
+namespace RealEstate.Mediator.QueryHandlers.Owner
 {
     public record GetPagedOwnersCommand : IRequest<IEnumerable<OwnerDto>>
     {

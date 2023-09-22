@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RealEstate.Mediator.Commands.Owner;
 using System;
@@ -7,18 +8,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RealEstate.Mediator.Handlers
+namespace RealEstate.Mediator.Handlers.OwnerHandler
 {
-    internal class DeleteOwnerCommandHandler : IRequestHandler<DeleteOwnerCommand, ActionResult>
+    internal class UpdateOwnerCommandHandler : IRequestHandler<UpdateOwnerCommand, ActionResult>
     {
         private readonly InMemoryDbContext _context;
+        private readonly IMapper _mapper;
 
-        public DeleteOwnerCommandHandler(InMemoryDbContext context)
+        public UpdateOwnerCommandHandler(InMemoryDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<ActionResult> Handle(DeleteOwnerCommand request, CancellationToken cancellationToken)
+        public async Task<ActionResult> Handle(UpdateOwnerCommand request, CancellationToken cancellationToken)
         {
             var owner = await _context.Owners.FindAsync(request.OwnerId);
             if (owner == null)
@@ -26,7 +29,8 @@ namespace RealEstate.Mediator.Handlers
                 return new NotFoundResult();
             }
 
-            _context.Owners.Remove(owner);
+            _mapper.Map(request.UpdateDto, owner);
+
             await _context.SaveChangesAsync(cancellationToken);
 
             return new OkResult();

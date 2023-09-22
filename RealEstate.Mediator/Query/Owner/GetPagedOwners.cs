@@ -3,13 +3,14 @@ using DTOModels;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RealEstate.Mediator.Commands.Owner;
+using RealEstate.Mediator.QueryHandlers.Owner;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RealEstate.Mediator.Handlers
+namespace RealEstate.Mediator.Query.Owner
 {
     internal class GetPagedOwnersCommandHandler : IRequestHandler<GetPagedOwnersCommand, IEnumerable<OwnerDto>>
     {

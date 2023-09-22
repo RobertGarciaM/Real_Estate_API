@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RealEstate.Mediator.Handlers
+namespace RealEstate.Mediator.Handlers.OwnerHandler
 {
     internal class CreateOwnerCommandHandler : IRequestHandler<CreateOwnerCommand, ActionResult>
     {
