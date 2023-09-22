@@ -9,6 +9,7 @@ namespace DataModels
 {
     public class Owner
     {
+        [Key]
         public Guid IdOwner { get; set; }
 
         [MaxLength(50)]

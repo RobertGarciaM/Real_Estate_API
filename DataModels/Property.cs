@@ -9,6 +9,7 @@ namespace DataModels
 {
     public class Property
     {
+        [Key]
         public int IdProperty { get; set; }
         [MaxLength(50)]
         public string Name { get; set; }

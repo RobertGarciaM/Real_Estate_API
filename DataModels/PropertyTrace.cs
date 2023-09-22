@@ -9,6 +9,7 @@ namespace DataModels
 {
     public class PropertyTrace
     {
+        [Key]
         public Guid IdPropertyTrace { get; set; }
         public DateTime DateSale { get; set; }
         [MaxLength(50)]
