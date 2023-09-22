@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RealEstate.Mediator.Commands.PropertyCommand;
 using RealEstate.Mediator.Commands.PropertyImageCommand;
+using RealEstate.Mediator.Commands.PropertyTraceCommand;
 
 namespace RealEstate.Mediator.CommandHandlers.PropertyHandler
 {
@@ -25,6 +26,7 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyHandler
             }
 
             await _mediator.Send(new DeletePropertyImagesByPropertyIdCommand { PropertyId = request.PropertyId });
+            await _mediator.Send(new DeletePropertyTraceByPropertyIdCommand { PropertyId = request.PropertyId });
             _context.Properties.Remove(property);
             await _context.SaveChangesAsync(cancellationToken);
 

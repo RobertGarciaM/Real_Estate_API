@@ -19,12 +19,12 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyImageHandler
                 .Where(pi => pi.IdProperty == request.PropertyId)
                 .ToList();
 
-            if (!propertyImagesToDelete.Any())
+            if (propertyImagesToDelete.Any())
             {
-                return new NotFoundResult();
+                _context.PropertyImages.RemoveRange(propertyImagesToDelete);
+                await _context.SaveChangesAsync();
             }
-            _context.PropertyImages.RemoveRange(propertyImagesToDelete);
-            await _context.SaveChangesAsync();
+          
             return new OkResult();
         }
     }
