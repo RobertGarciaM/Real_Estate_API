@@ -29,5 +29,17 @@ namespace Real_Estate_API.Controllers
         {
             return await _mediator.Send(query);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProperty(Guid id, [FromForm] UpdatePropertyDto dto)
+        {
+            return await _mediator.Send(new UpdatePropertyCommand { PropertyId = id, UpdateDto = dto });
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProperty(Guid id)
+        {
+            return await _mediator.Send(new DeletePropertyCommand { PropertyId = id });
+        }
     }
 }

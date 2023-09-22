@@ -44,17 +44,17 @@ namespace RealEstate.Mediator.QueryHandlers.PropertyQuery
 
             if (!string.IsNullOrEmpty(request.Name))
             {
-                query = query.Where(property => property.Name.Contains(request.Name));
+                query = query.Where(property => property.Name.ToLower().Contains(request.Name.ToLower()));
             }
 
             if (!string.IsNullOrEmpty(request.Address))
             {
-                query = query.Where(property => property.Address.Contains(request.Address));
+                query = query.Where(property => property.Address.ToLower().Contains(request.Address.ToLower()));
             }
 
             if (!string.IsNullOrEmpty(request.CodeInternal))
             {
-                query = query.Where(property => property.CodeInternal == request.CodeInternal);
+                query = query.Where(property => property.CodeInternal.ToLower() == request.CodeInternal.ToLower());
             }
 
             if (request.IdOwner != Guid.Empty)

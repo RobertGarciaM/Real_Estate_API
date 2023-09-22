@@ -19,6 +19,8 @@ namespace RealEstate.Mediator.AutoMapperProfile
 
             CreateMap<Property, PropertyDto>()
                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.IdProperty));
+            CreateMap<UpdatePropertyDto, Property>()
+                .ForMember(dest => dest.IdProperty, opt => opt.MapFrom(src => src.Id));
             CreateMap<CreatePropertyDto, Property>();
         }
     }
