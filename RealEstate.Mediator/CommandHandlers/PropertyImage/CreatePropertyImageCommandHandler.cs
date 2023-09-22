@@ -22,13 +22,12 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyImageHandler
 
         public async Task<ActionResult> Handle(CreatePropertyImageCommand request, CancellationToken cancellationToken)
         {
-            // TODO: Pendiente
-            //var propertyExists = await _mediator.Send(new CheckPropertyExistsCommand(request.Dto.IdProperty));
+            var propertyExists = await _mediator.Send(new CheckPropertyExistsCommand(request.Dto.IdProperty));
 
-            //if (!propertyExists)
-            //{
-            //    return new NotFoundObjectResult(new { Message = "The Property does not exists." });
-            //}
+            if (!propertyExists)
+            {
+                return new NotFoundObjectResult(new { Message = "The Property does not exists." });
+            }
 
             var propertyImage = _mapper.Map<PropertyImage>(request.Dto);
 

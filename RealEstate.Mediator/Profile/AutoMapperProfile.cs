@@ -28,6 +28,10 @@ namespace RealEstate.Mediator.AutoMapperProfile
                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.IdPropertyImage));
             CreateMap<UpdatePropertyImagesDto, PropertyImage>()
              .ForMember(dest => dest.File, opt => opt.MapFrom(src => Util.ConvertFormFileToByteArray(src.File)));
+            CreateMap<CreatePropertyTraceDto, PropertyTrace>();
+            CreateMap<UpdatePropertyTraceDto, PropertyTrace>();
+            CreateMap<PropertyTrace, PropertyTraceDto>()
+              .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.IdPropertyTrace));
 
         }
     }
