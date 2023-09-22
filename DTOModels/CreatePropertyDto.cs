@@ -1,16 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataModels
+namespace DTOModels
 {
-    public class Property
+    public class CreatePropertyDto
     {
-        [Key]
-        public Guid IdProperty { get; set; }
         [MaxLength(50)]
         public string Name { get; set; }
         [MaxLength(50)]
@@ -20,10 +19,5 @@ namespace DataModels
         public int Year { get; set; }
 
         public Guid IdOwner { get; set; }
-
-        public virtual Owner Owner { get; set; }
-        public virtual ICollection<PropertyImage> PropertyImages { get; set; }
-
-        public virtual ICollection<PropertyTrace> PropertyTraces { get; set; }
     }
 }

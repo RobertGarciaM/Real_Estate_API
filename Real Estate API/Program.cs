@@ -1,3 +1,10 @@
+using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
+using Real_Estate_API;
+using RealEstate.Mediator.AutoMapperProfile;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<InMemoryDbContext>();
-
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Load("RealEstate.Mediator")));
 
 var app = builder.Build();
 

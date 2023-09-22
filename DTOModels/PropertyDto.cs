@@ -5,25 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataModels
+namespace DTOModels
 {
-    public class Property
+    public class PropertyDto
     {
-        [Key]
-        public Guid IdProperty { get; set; }
-        [MaxLength(50)]
+        public Guid Id { get; set; }
         public string Name { get; set; }
-        [MaxLength(50)]
         public string Address { get; set; }
         public decimal Price { get; set; }
         public string CodeInternal { get; set; }
         public int Year { get; set; }
-
         public Guid IdOwner { get; set; }
-
-        public virtual Owner Owner { get; set; }
-        public virtual ICollection<PropertyImage> PropertyImages { get; set; }
-
-        public virtual ICollection<PropertyTrace> PropertyTraces { get; set; }
     }
 }

@@ -1,27 +1,23 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataModels
+namespace DTOModels
 {
-    public class Owner
+    public class UpdateOwnerDto
     {
-        [Key]
-        public Guid IdOwner { get; set; }
-
+        public Guid Id { get; set; }
         [MaxLength(50)]
         public string Name { get; set; }
-
-        [MaxLength(100)] 
+        [MaxLength(100)]
         public string Address { get; set; }
 
-        public byte[] Photo { get; set; }
+        public IFormFile Photo { get; set; }
 
         public DateTime Birthday { get; set; }
-
-        public virtual ICollection<Property> Properties { get; set; }
     }
 }

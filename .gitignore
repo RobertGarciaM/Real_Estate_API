@@ -1,0 +1,154 @@
+
+# Archivos generados por Visual Studio
+.vscode/
+.vs/
+/bin/
+/obj/
+*.suo
+*.user
+*.sln.docstates
+
+# Carpeta de la slibrerias
+/DataAccess/bin/
+/DataAccess/obj/
+/DTOModels/bin/
+/DTOModels/obj/
+/DataModels/bin/
+/DataModels/obj/
+/Real Estate API/bin/
+/Real Estate API/obj/
+/RealEstate.Mediator/bin/
+/RealEstate.Mediator/obj/
+
+# Carpeta de dependencias de NuGet
+/packages/
+
+# Carpeta de salida de publicación
+/publish/
+
+# Carpeta de archivos temporales de Visual Studio
+/.vscode/
+.vscode/
+*.suo
+*.user
+*.sln.docstates
+*.suo
+
+# Archivos de registro y crash dumps
+*.log
+*.log.*
+__pycache__/
+*.swp
+
+# Archivos temporales generados durante la compilación
+*.pdb
+
+# Archivos de configuración locales
+appsettings.Development.json
+appsettings.Production.json
+appsettings.Staging.json
+appsettings.Local.json
+
+# Carpeta de migraciones de Entity Framework
+/Data/Migrations/
+
+# Archivos generados por Rider (IDE)
+.idea/
+
+# Carpeta de usuario de Rider (IDE)
+.idea/
+
+# Archivos generados por Visual Studio Code (IDE)
+.vscode/
+
+# Archivos de usuario de Visual Studio Code (IDE)
+.vscode/
+
+# Carpeta de usuario de Visual Studio
+.vs/
+
+# Carpeta de respaldo de Visual Studio
+Backup*/
+
+# Archivos de respaldo de Visual Studio
+*.bak
+
+# Archivos de registro de Visual Studio
+*.log
+
+# Carpetas de caché de ReSharper
+_ReSharper*/
+*.sln.iml
+
+# Archivos de configuración de Rider (IDE)
+.idea/
+
+# Carpeta de caché de Rider (IDE)
+.idea/
+
+# Carpeta de respaldo de Rider (IDE)
+.idea/backup/
+
+# Carpetas de salida de Rider (IDE)
+.idea/out/
+
+# Archivos de registro de Rider (IDE)
+.idea/log/
+
+# Carpeta de caché de Rider (IDE)
+.idea/caches/
+
+# Carpetas de sistema generadas por Windows
+Thumbs.db
+Desktop.ini
+
+# Archivos de registro de Mac OS
+.DS_Store
+
+# Archivos de respaldo generados por Mac OS
+.AppleDouble/
+
+# Carpeta de caché de Mac OS
+.Trashes/
+
+# Carpeta de sistema generada por Mac OS
+__MACOSX/
+
+# Carpetas generadas por Rider (IDE)
+.idea/
+
+# Carpetas generadas por Visual Studio (IDE)
+.vs/
+
+# Archivo de registro de ReSharper
+ReSharper/
+
+# Archivo de caché de ReSharper
+_ReSharper/
+
+# Carpeta de caché de Rider
+.idea/
+
+# Carpeta de caché de Visual Studio
+.vs/
+
+# Carpeta de respaldo de Visual Studio
+Backup*/
+
+# Carpeta de usuario de Rider
+.idea/
+
+# Archivos de usuario de Rider
+.idea/
+
+# Carpeta de respaldo de Rider
+.idea/backup/
+
+# Carpeta de salida de Rider
+.idea/out/
+
+# Archivos de registro de Rider
+.idea/log/
+
+# Carpeta de caché de Rider
+.idea/caches/
