@@ -25,11 +25,9 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IAuthService, AuthService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(_ =>
+builder.Services.AddSwaggerGen(c =>
 {
-    //_.EnableAnnotations();
-
-    _.AddSecurityDefinition("JWT",
+    c.AddSecurityDefinition("JWT",
        new OpenApiSecurityScheme
        {
            Description = "JWT Authorization header using the Bearer scheme.",
@@ -38,8 +36,7 @@ builder.Services.AddSwaggerGen(_ =>
            Type = SecuritySchemeType.Http,
            Scheme = "bearer"
        });
-
-    _.AddSecurityRequirement(new OpenApiSecurityRequirement
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
                 {
                     new OpenApiSecurityScheme
@@ -53,6 +50,10 @@ builder.Services.AddSwaggerGen(_ =>
                     new List<string>()
                 }
             });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Real Estate API", Version = "v1" });
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
 });
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
@@ -94,6 +95,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
 }
 app.UseHttpsRedirection();
 app.UseAuthentication();
