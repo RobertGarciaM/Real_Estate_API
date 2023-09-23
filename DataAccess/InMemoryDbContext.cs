@@ -1,7 +1,9 @@
 ﻿using DataModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-public class InMemoryDbContext : DbContext
+public class InMemoryDbContext : IdentityDbContext<IdentityUser, IdentityRole, string>
 {
     public DbSet<Owner> Owners { get; set; }
     public DbSet<Property> Properties { get; set; }
