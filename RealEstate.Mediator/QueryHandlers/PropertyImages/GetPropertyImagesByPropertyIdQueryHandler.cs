@@ -8,10 +8,10 @@ namespace RealEstate.Mediator.QueryHandlers.PropertyImages
 {
     internal class GetPropertyImagesByPropertyIdQueryHandler : IRequestHandler<GetPropertyImagesByPropertyIdQuery, IEnumerable<PropertyImageDto>>
     {
-        private readonly InMemoryDbContext _context;
+        private readonly RealEstateDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetPropertyImagesByPropertyIdQueryHandler(InMemoryDbContext context, IMapper mapper)
+        public GetPropertyImagesByPropertyIdQueryHandler(RealEstateDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

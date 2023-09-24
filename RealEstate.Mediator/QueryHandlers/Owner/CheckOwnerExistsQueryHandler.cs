@@ -6,9 +6,9 @@ namespace RealEstate.Mediator.QueryHandlers.Owner
 {
     internal class CheckOwnerExistsQueryHandler : IRequestHandler<CheckOwnerExistsQuery, bool>
     {
-        private readonly InMemoryDbContext _context;
+        private readonly RealEstateDbContext _context;
 
-        public CheckOwnerExistsQueryHandler(InMemoryDbContext context)
+        public CheckOwnerExistsQueryHandler(RealEstateDbContext context)
         {
             _context = context;
         }

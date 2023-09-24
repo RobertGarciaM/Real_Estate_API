@@ -12,7 +12,7 @@ namespace RealEstate.Mediator.Test.DeletePropertyTrace
             Guid propertyTraceId = Guid.NewGuid();
             Guid propertyId = Guid.NewGuid();
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             PropertyTrace existingPropertyTrace = new()
             {
                 Name = "Name",
@@ -43,7 +43,7 @@ namespace RealEstate.Mediator.Test.DeletePropertyTrace
             // Arrange
             Guid propertyTraceId = Guid.NewGuid();
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             DeletePropertyTraceCommandHandler handler = new(context, null);
             DeletePropertyTraceCommand request = new() { PropertyTraceId = propertyTraceId };
 

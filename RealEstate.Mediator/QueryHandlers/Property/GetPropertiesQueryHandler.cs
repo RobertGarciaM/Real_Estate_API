@@ -1,18 +1,18 @@
 ﻿using AutoMapper;
 using DataModels;
 using DTOModels;
-using LinqKit;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using RealEstate.Mediator.Query.PropertyCommand;
 
 namespace RealEstate.Mediator.QueryHandlers.PropertyQuery
 {
     internal class GetPropertiesQueryHandler : IRequestHandler<GetPropertiesQuery, IEnumerable<PropertyDto>>
     {
-        private readonly InMemoryDbContext _context;
+        private readonly RealEstateDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetPropertiesQueryHandler(InMemoryDbContext context, IMapper mapper)
+        public GetPropertiesQueryHandler(RealEstateDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -20,53 +20,43 @@ namespace RealEstate.Mediator.QueryHandlers.PropertyQuery
 
         public async Task<IEnumerable<PropertyDto>> Handle(GetPropertiesQuery request, CancellationToken cancellationToken)
         {
-            IQueryable<Property> query = _context.Properties;
+            string sql = @"
+               SELECT *
+                FROM (
+                    SELECT *,
+                           ROW_NUMBER() OVER (ORDER BY IdProperty) AS RowNum
+                    FROM Properties
+                    WHERE (@Price IS NULL OR Price = @Price)
+                      AND (@Year IS NULL OR Year = @Year)
+                      AND (@Name IS NULL OR LOWER(Name) LIKE @Name)
+                      AND (@Address IS NULL OR LOWER(Address) LIKE @Address)
+                      AND (@CodeInternal IS NULL OR LOWER(CodeInternal) = @CodeInternal)
+                      AND (@IdOwner IS NULL OR IdOwner = @IdOwner)
+                ) AS SubQuery
+                WHERE RowNum BETWEEN @StartRow AND @EndRow;
+            ";
 
-            ExpressionStarter<Property> predicate = PredicateBuilder.New<Property>(property => false);
-
-            if (request.Price > 0)
+            Microsoft.Data.SqlClient.SqlParameter[] parameters = new[]
             {
-                predicate = predicate.Or(property => property.Price == request.Price);
-            }
+                new Microsoft.Data.SqlClient.SqlParameter("@Price", request.Price > 0 ? request.Price : DBNull.Value),
+                new Microsoft.Data.SqlClient.SqlParameter("@Year", request.Year > 0 ? request.Year : DBNull.Value),
+                new Microsoft.Data.SqlClient.SqlParameter("@Name", string.IsNullOrEmpty(request.Name) ? DBNull.Value : $"%{request.Name.ToLower()}%"),
+                new Microsoft.Data.SqlClient.SqlParameter("@Address", string.IsNullOrEmpty(request.Address) ? DBNull.Value : $"%{request.Address.ToLower()}%"),
+                new Microsoft.Data.SqlClient.SqlParameter("@CodeInternal", string.IsNullOrEmpty(request.CodeInternal) ? DBNull.Value : request.CodeInternal.ToLower()),
+                new Microsoft.Data.SqlClient.SqlParameter("@IdOwner", request.IdOwner != Guid.Empty ? request.IdOwner.ToString() : DBNull.Value),
+                new Microsoft.Data.SqlClient.SqlParameter("@StartRow", ((request.Page - 1) * request.PageSize) + 1), // Calcular el valor de StartRow
+                new Microsoft.Data.SqlClient.SqlParameter("@EndRow", request.Page * request.PageSize) // Calcular el valor de EndRow
+            };
 
-            if (request.Year > 0)
-            {
-                predicate = predicate.Or(property => property.Year == request.Year);
-            }
 
-            if (!string.IsNullOrEmpty(request.Name))
-            {
-                predicate = predicate.Or(property => property.Name.ToLower().Contains(request.Name.ToLower()));
-            }
-
-            if (!string.IsNullOrEmpty(request.Address))
-            {
-                predicate = predicate.Or(property => property.Address.ToLower().Contains(request.Address.ToLower()));
-            }
-
-            if (!string.IsNullOrEmpty(request.CodeInternal))
-            {
-                predicate = predicate.Or(property => property.CodeInternal.ToLower() == request.CodeInternal.ToLower());
-            }
-
-            if (request.IdOwner != Guid.Empty)
-            {
-                predicate = predicate.Or(property => property.IdOwner == request.IdOwner);
-            }
-
-            int skip = (request.Page - 1) * request.PageSize;
-
-            // TODO: This is not optimal and should only be used in very small applications, we will change it in the version where we will use SQL Server.
-            List<Property> result = query
-              .AsExpandable()
-              .Where(predicate)
-              .ToList();
+            List<Property> result = await _context.Properties
+                .FromSqlRaw(sql, parameters)
+                .ToListAsync();
 
             return result
-                .Skip(skip)
-                .Take(request.PageSize)
                 .Select(property => _mapper.Map<PropertyDto>(property))
                 .ToList();
+
         }
     }
 }

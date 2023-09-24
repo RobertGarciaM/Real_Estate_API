@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DataAccess;
 using DTOModels;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +9,10 @@ namespace RealEstate.Mediator.QueryHandlers.PropertyTrace
 {
     internal class GetPropertyTracesByPropertyIdQueryHandler : IRequestHandler<GetPropertyTracesByPropertyIdQuery, IEnumerable<PropertyTraceDto>>
     {
-        private readonly InMemoryDbContext _context;
+        private readonly RealEstateDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetPropertyTracesByPropertyIdQueryHandler(InMemoryDbContext context, IMapper mapper)
+        public GetPropertyTracesByPropertyIdQueryHandler(RealEstateDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

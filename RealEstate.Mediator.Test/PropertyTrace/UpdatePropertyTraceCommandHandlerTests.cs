@@ -9,7 +9,7 @@ namespace RealEstate.Mediator.Test.UpdatePropertyTrace
         public async Task Handle_ValidRequest_ReturnsOkResultAndValidatesUpdatedData()
         {
             // Arrange
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             MapperConfiguration mapperConfig = new(cfg => cfg.AddProfile(new AutoMapperProfile()));
             IMapper mapper = mapperConfig.CreateMapper();
 
@@ -62,7 +62,7 @@ namespace RealEstate.Mediator.Test.UpdatePropertyTrace
             Guid propertyTraceId = Guid.NewGuid();
             Guid propertyId = Guid.NewGuid();
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             PropertyTrace existingPropertyTrace = new()
             {
                 Name = "Name One",
@@ -114,7 +114,7 @@ namespace RealEstate.Mediator.Test.UpdatePropertyTrace
             // Arrange
             Guid propertyTraceId = Guid.NewGuid();
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             UpdatePropertyTraceDto updatedPropertyTraceDto = new()
             {
                 Id = propertyTraceId,

@@ -23,7 +23,7 @@ namespace RealEstate.Mediator.Test.GetPropertyTrace
                     }
              };
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             await context.PropertyTraces.AddRangeAsync(propertyTracesData);
             _ = await context.SaveChangesAsync();
 

@@ -22,7 +22,7 @@ namespace RealEstate.Mediator.Test.CreateProperty
                 Year = 2022
             };
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             Mock<IMediator> mediatorMock = new();
             _ = mediatorMock.Setup(mediator => mediator.Send(It.IsAny<CheckOwnerExistsQuery>(), CancellationToken.None))
                             .ReturnsAsync(ownerExists);
@@ -73,7 +73,7 @@ namespace RealEstate.Mediator.Test.CreateProperty
                 Year = 2022
             };
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             Mock<IMediator> mediatorMock = new();
             _ = mediatorMock.Setup(mediator => mediator.Send(It.IsAny<CheckOwnerExistsQuery>(), CancellationToken.None))
                 .ReturnsAsync(ownerExists);
@@ -107,7 +107,7 @@ namespace RealEstate.Mediator.Test.CreateProperty
                 Year = 2022
             };
             bool ownerExists = true;
-            InMemoryDbContext context = new();
+            RealEstateDbContext context = new();
             Mock<IMapper> mapperMock = new();
             Mock<IMediator> mediatorMock = new();
             _ = mediatorMock.Setup(mediator => mediator.Send(It.IsAny<CheckOwnerExistsQuery>(), CancellationToken.None))

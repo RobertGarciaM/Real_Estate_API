@@ -8,10 +8,10 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyTraceHandler
 {
     internal class CreatePropertyTraceCommandHandler : IRequestHandler<CreatePropertyTraceCommand, ActionResult>
     {
-        private readonly InMemoryDbContext _context;
+        private readonly RealEstateDbContext _context;
         private readonly IMapper _mapper;
 
-        public CreatePropertyTraceCommandHandler(InMemoryDbContext context, IMapper mapper)
+        public CreatePropertyTraceCommandHandler(RealEstateDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

@@ -9,6 +9,7 @@ namespace DTOModels
         [MaxLength(50)]
         public string? Address { get; set; }
         public decimal Price { get; set; }
+        [MaxLength(50)]
         public string? CodeInternal { get; set; }
         public int Year { get; set; }
 

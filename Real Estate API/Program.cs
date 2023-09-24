@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -59,7 +60,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequiredLength = 8;
-}).AddEntityFrameworkStores<InMemoryDbContext>();
+}).AddEntityFrameworkStores<RealEstateDbContext>();
 
 builder.Services.AddAuthentication(x =>
 {
@@ -81,11 +82,32 @@ builder.Services.AddAuthentication(x =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("Security:Tokens:Key").Value.ToString())),
     };
 });
-builder.Services.AddDbContext<InMemoryDbContext>();
+//builder.Services.AddDbContext<RealEstateDbContext>();
+
+builder.Services.AddDbContext<RealEstateDbContext>(options =>
+       options.UseSqlServer(config.GetSection("ConnectionStrings:SqlServerConnection").Value.ToString()));
+
+
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Load("RealEstate.Mediator")));
 
 WebApplication app = builder.Build();
+
+using (IServiceScope scope = app.Services.CreateScope())
+{
+    IServiceProvider serviceProvider = scope.ServiceProvider;
+
+    try
+    {
+        RealEstateDbContext dbContext = serviceProvider.GetRequiredService<RealEstateDbContext>();
+        dbContext.Database.Migrate();
+    }
+
+    catch (Exception ex)
+    {
+        Console.WriteLine("An error occurred while applying migrations: " + ex.Message);
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -10,11 +10,11 @@ namespace RealEstate.Mediator.Handlers.PropertyHandler
 {
     internal class CreatePropertyCommandHandler : IRequestHandler<CreatePropertyCommand, ActionResult>
     {
-        private readonly InMemoryDbContext _context;
+        private readonly RealEstateDbContext _context;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public CreatePropertyCommandHandler(InMemoryDbContext repository, IMapper mapper, IMediator mediator)
+        public CreatePropertyCommandHandler(RealEstateDbContext repository, IMapper mapper, IMediator mediator)
         {
             _context = repository;
             _mapper = mapper;

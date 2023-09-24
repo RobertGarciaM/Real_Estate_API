@@ -19,7 +19,7 @@ namespace RealEstate.Mediator.Test.DeleteProperty
             _ = mediatorMock.Setup(mediator => mediator.Send(It.IsAny<DeletePropertyTraceByPropertyIdCommand>(), CancellationToken.None))
                 .ReturnsAsync(new OkResult());
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             Property existingProperty = new()
             {
                 IdProperty = propertyId,
@@ -56,7 +56,7 @@ namespace RealEstate.Mediator.Test.DeleteProperty
             _ = mediatorMock.Setup(mediator => mediator.Send(It.IsAny<DeletePropertyTraceByPropertyIdCommand>(), CancellationToken.None))
                 .ReturnsAsync(new OkResult());
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             DeletePropertyCommandHandler handler = new(context, mediatorMock.Object);
             DeletePropertyCommand request = new() { PropertyId = propertyId };
 
@@ -65,8 +65,6 @@ namespace RealEstate.Mediator.Test.DeleteProperty
 
             // Assert
             _ = Assert.IsType<NotFoundResult>(result);
-            List<Property> properties = await context.Properties.ToListAsync();
-            Assert.Empty(properties);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace RealEstate.Mediator.Test.UpdateProperty
                 Year = 2022
             };
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             Mock<IMediator> mediatorMock = new();
             _ = mediatorMock.Setup(mediator => mediator.Send(It.IsAny<CheckOwnerExistsQuery>(), CancellationToken.None))
                             .ReturnsAsync(ownerExists);
@@ -79,7 +79,7 @@ namespace RealEstate.Mediator.Test.UpdateProperty
             };
 
             bool ownerExists = true;
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             Property existingProperty = new()
             {
                 IdProperty = propertyId,
@@ -127,11 +127,11 @@ namespace RealEstate.Mediator.Test.UpdateProperty
 
             bool ownerExists = true;
 
-            DbContextOptions<InMemoryDbContext> options = new DbContextOptionsBuilder<InMemoryDbContext>()
+            DbContextOptions<RealEstateDbContext> options = new DbContextOptionsBuilder<RealEstateDbContext>()
                 .UseInMemoryDatabase(databaseName: "RealEstateDataBase")
                 .Options;
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             Mock<IMediator> mediatorMock = new();
             _ = mediatorMock.Setup(mediator => mediator.Send(It.IsAny<CheckOwnerExistsQuery>(), CancellationToken.None))
                 .ReturnsAsync(ownerExists);
@@ -169,7 +169,7 @@ namespace RealEstate.Mediator.Test.UpdateProperty
             bool ownerExists = false;
 
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             Property existingProperty = new()
             {
                 IdProperty = propertyId,

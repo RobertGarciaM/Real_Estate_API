@@ -11,7 +11,7 @@ namespace RealEstate.Mediator.Test.DeletePropertyImage
             // Arrange
             Guid propertyImageId = Guid.NewGuid();
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             PropertyImage existingPropertyImage = new()
             {
                 IdPropertyImage = propertyImageId,
@@ -40,7 +40,7 @@ namespace RealEstate.Mediator.Test.DeletePropertyImage
             // Arrange
             Guid propertyImageId = Guid.NewGuid();
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             DeletePropertyImageCommandHandler handler = new(context);
             DeletePropertyImageCommand request = new() { PropertyImageId = propertyImageId };
 

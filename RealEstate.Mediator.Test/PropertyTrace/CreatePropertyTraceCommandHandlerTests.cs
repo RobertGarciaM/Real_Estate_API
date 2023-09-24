@@ -20,7 +20,7 @@ namespace RealEstate.Mediator.Test.CreatePropertyTrace
                 IdProperty = idProperty
             };
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             Mock<IMapper> mapperMock = new();
             _ = mapperMock.Setup(mapper => mapper.Map<PropertyTrace>(It.IsAny<CreatePropertyTraceDto>()))
                       .Returns<CreatePropertyTraceDto>(dto =>

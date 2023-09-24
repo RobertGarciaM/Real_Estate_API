@@ -9,10 +9,10 @@ namespace RealEstate.Mediator.Handlers.OwnerHandler
 {
     internal class CreateOwnerCommandHandler : IRequestHandler<CreateOwnerCommand, ActionResult>
     {
-        private readonly InMemoryDbContext _context;
+        private readonly RealEstateDbContext _context;
         private readonly IMapper _mapper;
 
-        public CreateOwnerCommandHandler(InMemoryDbContext ownerRepository, IMapper mapper)
+        public CreateOwnerCommandHandler(RealEstateDbContext ownerRepository, IMapper mapper)
         {
             _context = ownerRepository;
             _mapper = mapper;

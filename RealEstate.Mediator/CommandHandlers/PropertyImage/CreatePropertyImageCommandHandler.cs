@@ -9,11 +9,11 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyImageHandler
 {
     internal class CreatePropertyImageCommandHandler : IRequestHandler<CreatePropertyImageCommand, ActionResult>
     {
-        private readonly InMemoryDbContext _context;
+        private readonly RealEstateDbContext _context;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public CreatePropertyImageCommandHandler(InMemoryDbContext repository, IMapper mapper, IMediator mediator)
+        public CreatePropertyImageCommandHandler(RealEstateDbContext repository, IMapper mapper, IMediator mediator)
         {
             _context = repository;
             _mapper = mapper;

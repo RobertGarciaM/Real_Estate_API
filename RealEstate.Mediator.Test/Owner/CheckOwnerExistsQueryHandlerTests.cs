@@ -14,7 +14,7 @@
             Birthday = DateTime.Parse("1990-01-01"),
         };
 
-        using InMemoryDbContext context = new();
+        using RealEstateDbContext context = new();
         _ = context.Owners.Add(initialOwner);
         _ = await context.SaveChangesAsync();
 
@@ -34,7 +34,7 @@
     {
         // Arrange
         Guid ownerId = Guid.NewGuid();
-        using InMemoryDbContext context = new();
+        using RealEstateDbContext context = new();
 
         CheckOwnerExistsQueryHandler handler = new(context);
         CheckOwnerExistsQuery query = new(ownerId);
