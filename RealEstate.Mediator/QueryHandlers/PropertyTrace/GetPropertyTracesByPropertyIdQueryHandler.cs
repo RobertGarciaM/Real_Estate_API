@@ -3,11 +3,6 @@ using DTOModels;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RealEstate.Mediator.Query.PropertyTrace;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RealEstate.Mediator.QueryHandlers.PropertyTrace
 {
@@ -24,7 +19,7 @@ namespace RealEstate.Mediator.QueryHandlers.PropertyTrace
 
         public async Task<IEnumerable<PropertyTraceDto>> Handle(GetPropertyTracesByPropertyIdQuery request, CancellationToken cancellationToken)
         {
-            var propertyTraces = await _context.PropertyTraces
+            List<DataModels.PropertyTrace> propertyTraces = await _context.PropertyTraces
                 .Where(pt => pt.IdProperty == request.PropertyId)
                 .ToListAsync(cancellationToken);
 

@@ -20,7 +20,7 @@ namespace RealEstate.Mediator.QueryHandlers.PropertyImages
         public async Task<IEnumerable<PropertyImageDto>> Handle(GetPropertyImagesByPropertyIdQuery request, CancellationToken cancellationToken)
         {
             int skip = (request.Page - 1) * request.PageSize;
-            var propertyImages = await _context.PropertyImages
+            List<DataModels.PropertyImage> propertyImages = await _context.PropertyImages
                 .Where(pi => pi.IdProperty == request.PropertyId)
                 .Skip(skip)
                 .Take(request.PageSize)

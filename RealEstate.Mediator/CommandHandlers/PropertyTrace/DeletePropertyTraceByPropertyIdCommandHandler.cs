@@ -1,12 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using RealEstate.Mediator.Commands.PropertyImageCommand;
 using RealEstate.Mediator.Commands.PropertyTraceCommand;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RealEstate.Mediator.CommandHandlers.PropertyTraceHandler
 {
@@ -21,14 +15,14 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyTraceHandler
 
         public async Task<ActionResult> Handle(DeletePropertyTraceByPropertyIdCommand request, CancellationToken cancellationToken)
         {
-            var propertyTraceToDelete = _context.PropertyTraces
+            List<DataModels.PropertyTrace> propertyTraceToDelete = _context.PropertyTraces
                 .Where(pi => pi.IdProperty == request.PropertyId)
                 .ToList();
 
             if (propertyTraceToDelete.Any())
             {
                 _context.PropertyTraces.RemoveRange(propertyTraceToDelete);
-                await _context.SaveChangesAsync();
+                _ = await _context.SaveChangesAsync();
             }
 
             return new OkResult();

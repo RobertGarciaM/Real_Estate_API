@@ -12,6 +12,6 @@ public class InMemoryDbContext : IdentityDbContext<IdentityUser, IdentityRole, s
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseInMemoryDatabase(databaseName: "RealEstateDataBase");
+        _ = optionsBuilder.UseInMemoryDatabase(databaseName: "RealEstateDataBase");
     }
 }

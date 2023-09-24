@@ -1,5 +1,4 @@
 ﻿using DTOModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RealEstate.Mediator.Authentication;
 
@@ -30,13 +29,8 @@ namespace Real_Estate_API.Controllers
         public async Task<IActionResult> Login(UserCredentialsDto credentials)
         {
 
-            var token = await _authService.AuthenticateAsync(credentials);
-            if (token == null)
-            {
-                return Unauthorized();
-            }
-
-            return Ok(new { Token = token });
+            string token = await _authService.AuthenticateAsync(credentials);
+            return token == null ? Unauthorized() : Ok(new { Token = token });
         }
     }
 }

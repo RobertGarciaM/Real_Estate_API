@@ -1,14 +1,9 @@
 ﻿using AutoMapper;
 using DataModels;
-using DTOModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RealEstate.Mediator.Commands.Owner;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RealEstate.Mediator.CustomException;
 
 namespace RealEstate.Mediator.Handlers.OwnerHandler
 {
@@ -25,7 +20,12 @@ namespace RealEstate.Mediator.Handlers.OwnerHandler
 
         public async Task<ActionResult> Handle(CreateOwnerCommand request, CancellationToken cancellationToken)
         {
-            var owner = _mapper.Map<Owner>(request.Dto);
+            Owner owner = _mapper.Map<Owner>(request.Dto);
+
+            if (owner == null)
+            {
+                throw new EntityNullException();
+            }
 
             _ = await _context.AddAsync(owner);
             _ = await _context.SaveChangesAsync();

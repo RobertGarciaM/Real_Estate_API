@@ -17,14 +17,14 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyTraceHanlder
 
         public async Task<ActionResult> Handle(DeletePropertyTraceCommand request, CancellationToken cancellationToken)
         {
-            var propertyTrace = await _context.PropertyTraces.FindAsync(request.PropertyTraceId);
+            DataModels.PropertyTrace? propertyTrace = await _context.PropertyTraces.FindAsync(request.PropertyTraceId);
             if (propertyTrace == null)
             {
                 return new NotFoundResult();
             }
 
-            _context.PropertyTraces.Remove(propertyTrace);
-            await _context.SaveChangesAsync(cancellationToken);
+            _ = _context.PropertyTraces.Remove(propertyTrace);
+            _ = await _context.SaveChangesAsync(cancellationToken);
 
             return new OkResult();
         }

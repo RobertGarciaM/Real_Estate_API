@@ -19,7 +19,7 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyTraceHandler
 
         public async Task<ActionResult> Handle(CreatePropertyTraceCommand request, CancellationToken cancellationToken)
         {
-            var propertyTrace = _mapper.Map<PropertyTrace>(request.Dto);
+            PropertyTrace propertyTrace = _mapper.Map<PropertyTrace>(request.Dto);
 
             propertyTrace.IdPropertyTrace = Guid.NewGuid();
 

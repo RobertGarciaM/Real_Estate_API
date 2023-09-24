@@ -3,11 +3,6 @@ using DataModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RealEstate.Mediator.Commands.Owner;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RealEstate.Mediator.CommandHandlers.PropertyImageHandler
 {
@@ -24,16 +19,16 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyImageHandler
 
         public async Task<ActionResult> Handle(UpdatePropertyImageCommand request, CancellationToken cancellationToken)
         {
-            var existingPropertyImage = await _context.PropertyImages.FindAsync(request.dto.PropertyImageId);
+            PropertyImage? existingPropertyImage = await _context.PropertyImages.FindAsync(request.dto.PropertyImageId);
 
             if (existingPropertyImage == null)
             {
                 return new NotFoundResult();
             }
 
-            _mapper.Map(request.dto, existingPropertyImage);
+            _ = _mapper.Map(request.dto, existingPropertyImage);
 
-            await _context.SaveChangesAsync();
+            _ = await _context.SaveChangesAsync();
 
             return new OkResult();
         }

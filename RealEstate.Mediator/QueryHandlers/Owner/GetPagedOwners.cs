@@ -2,13 +2,7 @@
 using DTOModels;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using RealEstate.Mediator.Commands.Owner;
 using RealEstate.Mediator.Query.Owner;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RealEstate.Mediator.QueryHandlers.Owner
 {
@@ -25,7 +19,7 @@ namespace RealEstate.Mediator.QueryHandlers.Owner
 
         public async Task<IEnumerable<OwnerDto>> Handle(GetPagedOwnersQuery request, CancellationToken cancellationToken)
         {
-            var owners = await _context.Owners
+            List<DataModels.Owner> owners = await _context.Owners
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .ToListAsync(cancellationToken);

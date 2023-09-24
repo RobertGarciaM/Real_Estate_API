@@ -19,16 +19,16 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyHandler
 
         public async Task<ActionResult> Handle(DeletePropertyCommand request, CancellationToken cancellationToken)
         {
-            var property = await _context.Properties.FindAsync(request.PropertyId);
+            DataModels.Property? property = await _context.Properties.FindAsync(request.PropertyId);
             if (property == null)
             {
                 return new NotFoundResult();
             }
 
-            await _mediator.Send(new DeletePropertyImagesByPropertyIdCommand { PropertyId = request.PropertyId });
-            await _mediator.Send(new DeletePropertyTraceByPropertyIdCommand { PropertyId = request.PropertyId });
-            _context.Properties.Remove(property);
-            await _context.SaveChangesAsync(cancellationToken);
+            _ = await _mediator.Send(new DeletePropertyImagesByPropertyIdCommand { PropertyId = request.PropertyId });
+            _ = await _mediator.Send(new DeletePropertyTraceByPropertyIdCommand { PropertyId = request.PropertyId });
+            _ = _context.Properties.Remove(property);
+            _ = await _context.SaveChangesAsync(cancellationToken);
 
             return new OkResult();
         }

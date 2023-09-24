@@ -2,7 +2,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RealEstate.Mediator.Commands.Owner;
 using RealEstate.Mediator.Commands.PropertyCommand;
 using RealEstate.Mediator.Query.PropertyCommand;
 
@@ -10,7 +9,7 @@ namespace Real_Estate_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PropertyController: ControllerBase
+    public class PropertyController : ControllerBase
     {
         private readonly IMediator _mediator;
 
@@ -57,7 +56,7 @@ namespace Real_Estate_API.Controllers
         /// <response code="500">Internal server error. An unexpected error occurred while processing the request.</response>
         [HttpGet()]
         [Authorize(Roles = "Admin,Standard")]
-        public async Task<IEnumerable<PropertyDto>> GetProperties([FromQuery]  GetPropertiesQuery query)
+        public async Task<IEnumerable<PropertyDto>> GetProperties([FromQuery] GetPropertiesQuery query)
         {
             return await _mediator.Send(query);
         }

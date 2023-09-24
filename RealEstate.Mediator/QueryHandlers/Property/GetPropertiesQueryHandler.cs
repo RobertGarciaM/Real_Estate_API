@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using DataModels;
 using DTOModels;
+using LinqKit;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using RealEstate.Mediator.Query.PropertyCommand;
 
 namespace RealEstate.Mediator.QueryHandlers.PropertyQuery
@@ -22,46 +22,51 @@ namespace RealEstate.Mediator.QueryHandlers.PropertyQuery
         {
             IQueryable<Property> query = _context.Properties;
 
-            if (request.MinPrice > 0 || request.MaxPrice > 0)
+            ExpressionStarter<Property> predicate = PredicateBuilder.New<Property>(property => false);
+
+            if (request.Price > 0)
             {
-                query = query.Where(property =>
-                    (request.MinPrice <= 0 || property.Price >= request.MinPrice) &&
-                    (request.MaxPrice <= 0 || property.Price <= request.MaxPrice)
-                );
+                predicate = predicate.Or(property => property.Price == request.Price);
             }
 
             if (request.Year > 0)
             {
-                query = query.Where(property => property.Year == request.Year);
+                predicate = predicate.Or(property => property.Year == request.Year);
             }
 
             if (!string.IsNullOrEmpty(request.Name))
             {
-                query = query.Where(property => property.Name.ToLower().Contains(request.Name.ToLower()));
+                predicate = predicate.Or(property => property.Name.ToLower().Contains(request.Name.ToLower()));
             }
 
             if (!string.IsNullOrEmpty(request.Address))
             {
-                query = query.Where(property => property.Address.ToLower().Contains(request.Address.ToLower()));
+                predicate = predicate.Or(property => property.Address.ToLower().Contains(request.Address.ToLower()));
             }
 
             if (!string.IsNullOrEmpty(request.CodeInternal))
             {
-                query = query.Where(property => property.CodeInternal.ToLower() == request.CodeInternal.ToLower());
+                predicate = predicate.Or(property => property.CodeInternal.ToLower() == request.CodeInternal.ToLower());
             }
 
             if (request.IdOwner != Guid.Empty)
             {
-                query = query.Where(property => property.IdOwner == request.IdOwner);
+                predicate = predicate.Or(property => property.IdOwner == request.IdOwner);
             }
 
             int skip = (request.Page - 1) * request.PageSize;
-            List<Property> result = await query
+
+            // TODO: This is not optimal and should only be used in very small applications, we will change it in the version where we will use SQL Server.
+            List<Property> result = query
+              .AsExpandable()
+              .Where(predicate)
+              .ToList();
+
+            return result
                 .Skip(skip)
                 .Take(request.PageSize)
-                .ToListAsync(cancellationToken);
-
-            return _mapper.Map<List<PropertyDto>>(result);
+                .Select(property => _mapper.Map<PropertyDto>(property))
+                .ToList();
         }
     }
 }

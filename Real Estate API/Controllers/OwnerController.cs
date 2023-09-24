@@ -1,6 +1,5 @@
 ﻿using DTOModels;
 using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RealEstate.Mediator.Commands.Owner;
@@ -30,7 +29,7 @@ namespace Real_Estate_API.Controllers
         /// A response indicating the result of creating the owner.
         /// </returns>
         /// <response code="200">Owner created successfully.</response>
-        /// <response code="400">Bad request. Invalid or missing data in the request.</response>
+        /// <response code="400">Bad request. Invalid or missing data in the request or an EntityNullException occurred.</response>
         /// <response code="401">Unauthorized. The user does not have the necessary permissions.</response>
         /// <response code="500">Internal server error. An unexpected error occurred while processing the request.</response>
         [HttpPost]
@@ -59,7 +58,7 @@ namespace Real_Estate_API.Controllers
         [Authorize(Roles = "Admin,Standard")]
         public async Task<IActionResult> GetPagedOwners(int page, int pageSize)
         {
-            var result = await _mediator.Send(new GetPagedOwnersQuery(page, pageSize));
+            IEnumerable<OwnerDto> result = await _mediator.Send(new GetPagedOwnersQuery(page, pageSize));
             return Ok(result);
         }
 
