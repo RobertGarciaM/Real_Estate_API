@@ -15,16 +15,16 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyImageHandler
 
         public async Task<ActionResult> Handle(DeletePropertyImagesByPropertyIdCommand request, CancellationToken cancellationToken)
         {
-            var propertyImagesToDelete = _context.PropertyImages
+            List<DataModels.PropertyImage> propertyImagesToDelete = _context.PropertyImages
                 .Where(pi => pi.IdProperty == request.PropertyId)
                 .ToList();
 
             if (propertyImagesToDelete.Any())
             {
                 _context.PropertyImages.RemoveRange(propertyImagesToDelete);
-                await _context.SaveChangesAsync();
+                _ = await _context.SaveChangesAsync();
             }
-          
+
             return new OkResult();
         }
     }

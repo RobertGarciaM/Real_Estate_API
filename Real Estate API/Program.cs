@@ -1,20 +1,17 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Real_Estate_API;
 using RealEstate.Mediator.Authentication;
-using RealEstate.Mediator.AutoMapperProfile;
+using RealEstate.Mediator.MapperProfile;
 using System.Reflection;
 using System.Text;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 IdentityModelEventSource.ShowPII = true;
 
-var config = new ConfigurationBuilder()
+IConfigurationRoot config = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json")
     .Build();
@@ -51,8 +48,8 @@ builder.Services.AddSwaggerGen(c =>
                 }
             });
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Real Estate API", Version = "v1" });
-    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    string xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
 });
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
@@ -71,7 +68,7 @@ builder.Services.AddAuthentication(x =>
     x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(o =>
 {
-    var key = Encoding.UTF8.GetBytes(config.GetSection("Security:Tokens:Key").Value.ToString());
+    byte[] key = Encoding.UTF8.GetBytes(config.GetSection("Security:Tokens:Key").Value.ToString());
     o.RequireHttpsMetadata = false;
     o.SaveToken = true;
     o.TokenValidationParameters = new TokenValidationParameters
@@ -88,73 +85,61 @@ builder.Services.AddDbContext<InMemoryDbContext>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Load("RealEstate.Mediator")));
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    _ = app.UseSwagger();
+    _ = app.UseSwaggerUI();
 
 }
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-using (var scope = app.Services.CreateScope())
+using (IServiceScope scope = app.Services.CreateScope())
 {
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    UserManager<IdentityUser> userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    RoleManager<IdentityRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
     if (!await roleManager.RoleExistsAsync("Admin"))
     {
-        await roleManager.CreateAsync(new IdentityRole("Admin"));
+        _ = await roleManager.CreateAsync(new IdentityRole("Admin"));
     }
 
     if (!await roleManager.RoleExistsAsync("Standard"))
     {
-        await roleManager.CreateAsync(new IdentityRole("Standard"));
+        _ = await roleManager.CreateAsync(new IdentityRole("Standard"));
     }
 
     if (await userManager.FindByNameAsync("admin") == null)
     {
-        var adminUser = new IdentityUser
+        IdentityUser adminUser = new()
         {
             UserName = "admin",
             Email = "admin@example.com"
         };
 
-        var result = await userManager.CreateAsync(adminUser, "AdminPassword123!");
+        IdentityResult result = await userManager.CreateAsync(adminUser, "AdminPassword123!");
 
-        if (result.Succeeded)
-        {
-            await userManager.AddToRoleAsync(adminUser, "Admin");
-        }
-        else
-        {
-            throw new Exception("Failed to create admin user");
-        }
+        _ = result.Succeeded ? await userManager.AddToRoleAsync(adminUser, "Admin") : throw new Exception("Failed to create admin user");
     }
 
 
     if (await userManager.FindByNameAsync("user") == null)
     {
-        var standardUser = new IdentityUser
+        IdentityUser standardUser = new()
         {
             UserName = "user",
             Email = "user@example.com"
         };
 
-        var result = await userManager.CreateAsync(standardUser, "UserPassword123!");
+        IdentityResult result = await userManager.CreateAsync(standardUser, "UserPassword123!");
 
-        if (result.Succeeded)
-        {
-            await userManager.AddToRoleAsync(standardUser, "Standard");
-        }
-        else
-        {
-            throw new Exception("Failed to create standard user");
-        }
+        _ = result.Succeeded
+            ? await userManager.AddToRoleAsync(standardUser, "Standard")
+            : throw new Exception("Failed to create standard user");
     }
 }
 

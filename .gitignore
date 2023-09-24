@@ -19,6 +19,8 @@
 /Real Estate API/obj/
 /RealEstate.Mediator/bin/
 /RealEstate.Mediator/obj/
+/RealEstate.Mediator.Test/bin/
+/RealEstate.Mediator.Test/obj/
 
 # Carpeta de dependencias de NuGet
 /packages/

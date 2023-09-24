@@ -23,23 +23,23 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyHandler
 
         public async Task<ActionResult> Handle(UpdatePropertyCommand request, CancellationToken cancellationToken)
         {
-            var property = await _context.Properties.FirstOrDefaultAsync(p => p.IdProperty == request.UpdateDto.Id, cancellationToken);
+            Property? property = await _context.Properties.FirstOrDefaultAsync(p => p.IdProperty == request.UpdateDto.Id, cancellationToken);
 
             if (property == null)
             {
                 return new NotFoundResult();
             }
 
-            var ownerExists = await _mediator.Send(new CheckOwnerExistsQuery(request.UpdateDto.IdOwner));
+            bool ownerExists = await _mediator.Send(new CheckOwnerExistsQuery(request.UpdateDto.IdOwner));
 
             if (!ownerExists)
             {
                 return new NotFoundObjectResult(new { Message = "The Owner does not exists." });
             }
 
-            _mapper.Map(request.UpdateDto, property);
+            _ = _mapper.Map(request.UpdateDto, property);
 
-            await _context.SaveChangesAsync(cancellationToken);
+            _ = await _context.SaveChangesAsync(cancellationToken);
 
             return new OkResult();
         }

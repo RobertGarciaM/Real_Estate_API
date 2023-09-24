@@ -16,15 +16,15 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyImageHandler
 
         public async Task<ActionResult> Handle(DeletePropertyImageCommand request, CancellationToken cancellationToken)
         {
-            var existingPropertyImage = await _context.PropertyImages.FindAsync(request.PropertyImageId);
+            DataModels.PropertyImage? existingPropertyImage = await _context.PropertyImages.FindAsync(request.PropertyImageId);
 
             if (existingPropertyImage == null)
             {
                 return new NotFoundResult();
             }
 
-            _context.PropertyImages.Remove(existingPropertyImage);
-            await _context.SaveChangesAsync();
+            _ = _context.PropertyImages.Remove(existingPropertyImage);
+            _ = await _context.SaveChangesAsync();
 
             return new OkResult();
         }

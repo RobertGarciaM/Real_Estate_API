@@ -2,10 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RealEstate.Mediator.Commands.Owner;
-using RealEstate.Mediator.Commands.PropertyImageCommand;
 using RealEstate.Mediator.Commands.PropertyTraceCommand;
-using RealEstate.Mediator.Query.PropertyImages;
 using RealEstate.Mediator.Query.PropertyTrace;
 
 namespace Real_Estate_API.Controllers

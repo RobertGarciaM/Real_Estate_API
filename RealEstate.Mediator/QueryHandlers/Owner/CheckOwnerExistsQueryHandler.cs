@@ -1,11 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RealEstate.Mediator.Query.Owner;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RealEstate.Mediator.QueryHandlers.Owner
 {
@@ -20,7 +15,7 @@ namespace RealEstate.Mediator.QueryHandlers.Owner
 
         public async Task<bool> Handle(CheckOwnerExistsQuery request, CancellationToken cancellationToken)
         {
-            var ownerExists = await _context.Owners.AnyAsync(o => o.IdOwner == request.OwnerId, cancellationToken);
+            bool ownerExists = await _context.Owners.AnyAsync(o => o.IdOwner == request.OwnerId, cancellationToken);
 
             return ownerExists;
         }
