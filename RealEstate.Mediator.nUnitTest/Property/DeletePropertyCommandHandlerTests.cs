@@ -1,9 +1,12 @@
-﻿
-namespace RealEstate.Mediator.Test.DeleteProperty
+﻿using MediatR;
+using RealEstate.Mediator.CommandHandlers.PropertyHandler;
+
+namespace RealEstate.Mediator.nUnitTest.PropertyNTest
 {
+    [TestFixture]
     public class DeletePropertyCommandHandlerTests
     {
-        [Fact]
+        [Test]
         public async Task Handle_ExistingProperty_ReturnsOkResult()
         {
             // Arrange
@@ -35,12 +38,12 @@ namespace RealEstate.Mediator.Test.DeleteProperty
             ActionResult result = await handler.Handle(request, CancellationToken.None);
 
             // Assert
-            _ = Assert.IsType<OkResult>(result);
-            Property? deletedProperty = await context.Properties.FindAsync(propertyId);
-            Assert.Null(deletedProperty);
+            Assert.That(result, Is.TypeOf<OkResult>());
+            Property deletedProperty = await context.Properties.FindAsync(propertyId);
+            Assert.IsNull(deletedProperty);
         }
 
-        [Fact]
+        [Test]
         public async Task Handle_NonExistentProperty_ReturnsNotFoundResult()
         {
             // Arrange
@@ -59,7 +62,7 @@ namespace RealEstate.Mediator.Test.DeleteProperty
             ActionResult result = await handler.Handle(request, CancellationToken.None);
 
             // Assert
-            _ = Assert.IsType<NotFoundResult>(result);
+            Assert.That(result, Is.TypeOf<NotFoundResult>());
         }
     }
 }

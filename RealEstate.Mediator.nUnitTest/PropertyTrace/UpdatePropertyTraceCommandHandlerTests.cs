@@ -1,18 +1,18 @@
-﻿
-namespace RealEstate.Mediator.Test.UpdatePropertyTrace
+﻿namespace RealEstate.Mediator.nUnitTest.PropertyTraceNTest
 {
+    [TestFixture]
     public class UpdatePropertyTraceCommandHandlerTests
     {
-        [Fact]
+        [Test]
         public async Task Handle_ValidRequest_ReturnsOkResultAndValidatesUpdatedData()
         {
             // Arrange
-            using RealEstateDbContext context = new();
-            MapperConfiguration mapperConfig = new(cfg => cfg.AddProfile(new AutoMapperProfile()));
+            using RealEstateDbContext context = new RealEstateDbContext();
+            MapperConfiguration mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new AutoMapperProfile()));
             IMapper mapper = mapperConfig.CreateMapper();
 
             Guid propertyTraceId = Guid.NewGuid();
-            PropertyTrace initialPropertyTrace = new()
+            PropertyTrace initialPropertyTrace = new PropertyTrace
             {
                 IdPropertyTrace = propertyTraceId,
                 DateSale = DateTime.Now,
@@ -25,7 +25,7 @@ namespace RealEstate.Mediator.Test.UpdatePropertyTrace
             _ = context.PropertyTraces.Add(initialPropertyTrace);
             _ = await context.SaveChangesAsync();
 
-            UpdatePropertyTraceDto updatedPropertyTraceDto = new()
+            UpdatePropertyTraceDto updatedPropertyTraceDto = new UpdatePropertyTraceDto
             {
                 Id = propertyTraceId,
                 DateSale = DateTime.Now.AddDays(1),
@@ -35,33 +35,33 @@ namespace RealEstate.Mediator.Test.UpdatePropertyTrace
                 IdProperty = initialPropertyTrace.IdProperty
             };
 
-            UpdatePropertyTraceCommand updatePropertyTraceCommand = new() { dto = updatedPropertyTraceDto };
+            UpdatePropertyTraceCommand updatePropertyTraceCommand = new UpdatePropertyTraceCommand { dto = updatedPropertyTraceDto };
 
-            UpdatePropertyTraceCommandHandler handler = new(context, mapper);
+            UpdatePropertyTraceCommandHandler handler = new UpdatePropertyTraceCommandHandler(context, mapper);
 
             // Act
             ActionResult result = await handler.Handle(updatePropertyTraceCommand, CancellationToken.None);
 
             // Assert
-            OkResult okResult = Assert.IsType<OkResult>(result);
+            Assert.That(result, Is.TypeOf<OkResult>());
             PropertyTrace? updatedPropertyTrace = await context.PropertyTraces.FindAsync(propertyTraceId);
             Assert.NotNull(updatedPropertyTrace);
-            Assert.Equal(updatedPropertyTraceDto.DateSale, updatedPropertyTrace.DateSale);
-            Assert.Equal(updatedPropertyTraceDto.Name, updatedPropertyTrace.Name);
-            Assert.Equal(updatedPropertyTraceDto.Value, updatedPropertyTrace.Value);
-            Assert.Equal(updatedPropertyTraceDto.Tax, updatedPropertyTrace.Tax);
-            Assert.Equal(updatedPropertyTraceDto.IdProperty, updatedPropertyTrace.IdProperty);
+            Assert.AreEqual(updatedPropertyTraceDto.DateSale, updatedPropertyTrace.DateSale);
+            Assert.AreEqual(updatedPropertyTraceDto.Name, updatedPropertyTrace.Name);
+            Assert.AreEqual(updatedPropertyTraceDto.Value, updatedPropertyTrace.Value);
+            Assert.AreEqual(updatedPropertyTraceDto.Tax, updatedPropertyTrace.Tax);
+            Assert.AreEqual(updatedPropertyTraceDto.IdProperty, updatedPropertyTrace.IdProperty);
         }
 
-        [Fact]
+        [Test]
         public async Task Handle_ExistingPropertyTrace_ReturnsOkResult()
         {
             // Arrange
             Guid propertyTraceId = Guid.NewGuid();
             Guid propertyId = Guid.NewGuid();
 
-            using RealEstateDbContext context = new();
-            PropertyTrace existingPropertyTrace = new()
+            using RealEstateDbContext context = new RealEstateDbContext();
+            PropertyTrace existingPropertyTrace = new PropertyTrace
             {
                 Name = "Name One",
                 DateSale = DateTime.Now,
@@ -73,7 +73,7 @@ namespace RealEstate.Mediator.Test.UpdatePropertyTrace
             _ = context.PropertyTraces.Add(existingPropertyTrace);
             _ = context.SaveChanges();
 
-            UpdatePropertyTraceDto updatedPropertyTraceDto = new()
+            UpdatePropertyTraceDto updatedPropertyTraceDto = new UpdatePropertyTraceDto
             {
                 Id = existingPropertyTrace.IdPropertyTrace,
                 Name = "Name Two",
@@ -83,8 +83,8 @@ namespace RealEstate.Mediator.Test.UpdatePropertyTrace
                 IdProperty = propertyId
             };
 
-            Mock<IMapper> mapperMock = new();
-            _ = mapperMock.Setup(mapper => mapper.Map(It.IsAny<UpdatePropertyTraceDto>(), It.IsAny<PropertyTrace>()))
+            Mock<IMapper> mapperMock = new Mock<IMapper>();
+            _ = mapperMock.Setup(mapper => mapper.Map(updatedPropertyTraceDto, existingPropertyTrace))
                 .Callback<UpdatePropertyTraceDto, PropertyTrace>((dto, trace) =>
                 {
                     trace.IdPropertyTrace = dto.Id;
@@ -94,26 +94,26 @@ namespace RealEstate.Mediator.Test.UpdatePropertyTrace
                     trace.DateSale = dto.DateSale;
                 });
 
-            UpdatePropertyTraceCommandHandler handler = new(context, mapperMock.Object);
-            UpdatePropertyTraceCommand request = new() { dto = updatedPropertyTraceDto };
+            UpdatePropertyTraceCommandHandler handler = new UpdatePropertyTraceCommandHandler(context, mapperMock.Object);
+            UpdatePropertyTraceCommand request = new UpdatePropertyTraceCommand { dto = updatedPropertyTraceDto };
 
             // Act
             ActionResult result = await handler.Handle(request, CancellationToken.None);
 
             // Assert
-            _ = Assert.IsType<OkResult>(result);
+            Assert.That(result, Is.TypeOf<OkResult>());
             PropertyTrace? updatedTrace = await context.PropertyTraces.FindAsync(propertyTraceId);
             Assert.NotNull(updatedTrace);
         }
 
-        [Fact]
+        [Test]
         public async Task Handle_NonExistentPropertyTrace_ReturnsNotFoundResult()
         {
             // Arrange
             Guid propertyTraceId = Guid.NewGuid();
 
-            using RealEstateDbContext context = new();
-            UpdatePropertyTraceDto updatedPropertyTraceDto = new()
+            using RealEstateDbContext context = new RealEstateDbContext();
+            UpdatePropertyTraceDto updatedPropertyTraceDto = new UpdatePropertyTraceDto
             {
                 Id = propertyTraceId,
                 Name = "Name Two",
@@ -122,17 +122,16 @@ namespace RealEstate.Mediator.Test.UpdatePropertyTrace
                 Value = 999,
             };
 
-            Mock<IMapper> mapperMock = new();
+            Mock<IMapper> mapperMock = new Mock<IMapper>();
 
-            UpdatePropertyTraceCommandHandler handler = new(context, mapperMock.Object);
-            UpdatePropertyTraceCommand request = new() { dto = updatedPropertyTraceDto };
+            UpdatePropertyTraceCommandHandler handler = new UpdatePropertyTraceCommandHandler(context, mapperMock.Object);
+            UpdatePropertyTraceCommand request = new UpdatePropertyTraceCommand { dto = updatedPropertyTraceDto };
 
             // Act
             ActionResult result = await handler.Handle(request, CancellationToken.None);
 
             // Assert
-            _ = Assert.IsType<NotFoundResult>(result);
+            Assert.That(result, Is.TypeOf<NotFoundResult>());
         }
     }
-
 }

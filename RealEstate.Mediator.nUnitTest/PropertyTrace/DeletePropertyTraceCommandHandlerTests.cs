@@ -1,9 +1,9 @@
-﻿
-namespace RealEstate.Mediator.Test.DeletePropertyTrace
+﻿namespace RealEstate.Mediator.nUnitTest.PropertyTraceNTest
 {
+    [TestFixture]
     public class DeletePropertyTraceCommandHandlerTests
     {
-        [Fact]
+        [Test]
         public async Task Handle_ExistingPropertyTrace_ReturnsOkResult()
         {
             // Arrange
@@ -30,12 +30,12 @@ namespace RealEstate.Mediator.Test.DeletePropertyTrace
             ActionResult result = await handler.Handle(request, CancellationToken.None);
 
             // Assert
-            _ = Assert.IsType<OkResult>(result);
+            Assert.That(result, Is.TypeOf<OkResult>());
             PropertyTrace? deletedTrace = await context.PropertyTraces.FindAsync(propertyTraceId);
             Assert.Null(deletedTrace);
         }
 
-        [Fact]
+        [Test]
         public async Task Handle_NonExistentPropertyTrace_ReturnsNotFoundResult()
         {
             // Arrange
@@ -49,8 +49,8 @@ namespace RealEstate.Mediator.Test.DeletePropertyTrace
             ActionResult result = await handler.Handle(request, CancellationToken.None);
 
             // Assert
-            _ = Assert.IsType<NotFoundResult>(result);
+            Assert.That(result, Is.TypeOf<NotFoundResult>());
+
         }
     }
-
 }

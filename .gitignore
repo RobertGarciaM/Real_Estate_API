@@ -21,6 +21,8 @@
 /RealEstate.Mediator/obj/
 /RealEstate.Mediator.Test/bin/
 /RealEstate.Mediator.Test/obj/
+/RealEstate.Mediator.nUnitTest/bin/
+/RealEstate.Mediator.nUnitTest/obj/
 
 # Carpeta de dependencias de NuGet
 /packages/

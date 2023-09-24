@@ -28,7 +28,7 @@ namespace RealEstate.Mediator.Handlers.PropertyHandler
 
             if (!ownerExists)
             {
-                return new NotFoundObjectResult(new { Message = "The Owner does not exists." });
+                return new NotFoundObjectResult(new { Message = "The Owner does not exist." });
             }
 
             Property property = _mapper.Map<Property>(request.Dto);

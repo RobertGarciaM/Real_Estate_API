@@ -1,10 +1,10 @@
 ﻿
-
-namespace RealEstate.Mediator.Test.UpdatePropertyImage
+namespace RealEstate.Mediator.nUnitTest.PropertyImageNTest
 {
+    [TestFixture]
     public class UpdatePropertyImageCommandHandlerTests
     {
-        [Fact]
+        [Test]
         public async Task Handle_ValidRequest_ReturnsOkResultAndValidatesUpdatedData()
         {
             // Arrange
@@ -45,18 +45,18 @@ namespace RealEstate.Mediator.Test.UpdatePropertyImage
             ActionResult result = await handler.Handle(updatePropertyImageCommand, CancellationToken.None);
 
             // Assert
-            OkResult okResult = Assert.IsType<OkResult>(result);
+            Assert.That(result, Is.TypeOf<OkResult>());
 
             // Validate that the property image was updated in the database
-            PropertyImage? updatedPropertyImage = await context.PropertyImages.FindAsync(propertyImageId);
+            PropertyImage updatedPropertyImage = await context.PropertyImages.FindAsync(propertyImageId);
             Assert.NotNull(updatedPropertyImage);
 
             // Validate each property value
-            Assert.Equal(updatedPropertyImageDto.Enabled, updatedPropertyImage.Enabled);
-            Assert.Equal(updatedPropertyImageDto.IdProperty, updatedPropertyImage.IdProperty);
+            Assert.That(updatedPropertyImage.Enabled, Is.EqualTo(updatedPropertyImageDto.Enabled));
+            Assert.That(updatedPropertyImage.IdProperty, Is.EqualTo(updatedPropertyImageDto.IdProperty));
         }
 
-        [Fact]
+        [Test]
         public async Task Handle_ExistingPropertyImage_ReturnsOkResult()
         {
             // Arrange
@@ -103,10 +103,10 @@ namespace RealEstate.Mediator.Test.UpdatePropertyImage
             ActionResult result = await handler.Handle(request, CancellationToken.None);
 
             // Assert
-            _ = Assert.IsType<OkResult>(result);
+            Assert.That(result, Is.TypeOf<OkResult>());
         }
 
-        [Fact]
+        [Test]
         public async Task Handle_NonExistentPropertyImage_ReturnsNotFoundResult()
         {
             // Arrange
@@ -137,8 +137,7 @@ namespace RealEstate.Mediator.Test.UpdatePropertyImage
             ActionResult result = await handler.Handle(request, CancellationToken.None);
 
             // Assert
-            _ = Assert.IsType<NotFoundResult>(result);
+            Assert.That(result, Is.TypeOf<NotFoundResult>());
         }
     }
-
 }

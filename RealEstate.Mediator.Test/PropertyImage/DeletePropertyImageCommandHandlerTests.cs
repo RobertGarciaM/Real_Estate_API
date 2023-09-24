@@ -1,6 +1,4 @@
-﻿using RealEstate.Mediator.CommandHandlers.PropertyImageHandler;
-using RealEstate.Mediator.Commands.PropertyImageCommand;
-
+﻿
 namespace RealEstate.Mediator.Test.DeletePropertyImage
 {
     public class DeletePropertyImageCommandHandlerTests

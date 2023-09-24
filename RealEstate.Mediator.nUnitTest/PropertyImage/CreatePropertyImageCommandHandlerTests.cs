@@ -1,9 +1,14 @@
 ﻿
-namespace RealEstate.Mediator.Test.CreatePropertyImage
+using MediatR;
+using RealEstate.Mediator.CommandHandlers.PropertyImageHandler;
+using RealEstate.Mediator.Commands.PropertyImage;
+
+namespace RealEstate.Mediator.nUnitTest.PropertyImageNTest
 {
+    [TestFixture]
     public class CreatePropertyImageCommandHandlerTests
     {
-        [Fact]
+        [Test]
         public async Task Handle_ExistingProperty_ReturnsOkResultAndValidatesSavedData()
         {
             // Arrange
@@ -12,7 +17,7 @@ namespace RealEstate.Mediator.Test.CreatePropertyImage
             Mock<IMapper> mapperMock = new();
             Mock<IMediator> mediatorMock = new();
             _ = mediatorMock.Setup(mediator => mediator.Send(It.IsAny<CheckPropertyExistsCommand>(), CancellationToken.None))
-                        .ReturnsAsync(true);
+                .ReturnsAsync(true);
             Mock<IFormFile> formFileMock = new();
             _ = formFileMock.Setup(file => file.FileName).Returns("image.jpg");
             _ = formFileMock.Setup(file => file.Length).Returns(1024);
@@ -45,14 +50,14 @@ namespace RealEstate.Mediator.Test.CreatePropertyImage
             ActionResult result = await handler.Handle(request, CancellationToken.None);
 
             // Assert
-            OkObjectResult okResult = Assert.IsType<OkObjectResult>(result);
+            Assert.IsInstanceOf<OkObjectResult>(result);
             PropertyImage? createdImage = await context.PropertyImages.FirstOrDefaultAsync(pi => pi.IdPropertyImage == propertyImageId);
             Assert.NotNull(createdImage);
-            Assert.Equal(propertyImageDto.IdProperty, createdImage.IdProperty);
-            Assert.Equal(propertyImageDto.Enabled, createdImage.Enabled);
+            Assert.That(createdImage.IdProperty, Is.EqualTo(propertyImageDto.IdProperty));
+            Assert.That(createdImage.Enabled, Is.EqualTo(propertyImageDto.Enabled));
         }
 
-        [Fact]
+        [Test]
         public async Task Handle_NonExistentProperty_ReturnsNotFoundResult()
         {
             // Arrange
@@ -72,7 +77,6 @@ namespace RealEstate.Mediator.Test.CreatePropertyImage
                 Enabled = true,
                 IdProperty = Guid.NewGuid(),
                 File = new byte[] { 0x12, 0x34, 0x56 }
-
             };
 
             using RealEstateDbContext context = new();
@@ -93,8 +97,10 @@ namespace RealEstate.Mediator.Test.CreatePropertyImage
             ActionResult result = await handler.Handle(request, CancellationToken.None);
 
             // Assert
-            _ = Assert.IsType<NotFoundObjectResult>(result);
+            Assert.IsInstanceOf<NotFoundObjectResult>(result);
+            NotFoundObjectResult notFoundObjectResult = (NotFoundObjectResult)result;
+            string message = (string)notFoundObjectResult.Value.GetType().GetProperty("Message")?.GetValue(notFoundObjectResult.Value, null);
+            Assert.That(message, Is.EqualTo("The Property does not exists."));
         }
     }
-
 }

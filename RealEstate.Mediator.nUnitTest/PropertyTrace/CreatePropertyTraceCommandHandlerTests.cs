@@ -1,9 +1,11 @@
-﻿
-namespace RealEstate.Mediator.Test.CreatePropertyTrace
+﻿using RealEstate.Mediator.CommandHandlers.PropertyTraceHandler;
+
+namespace RealEstate.Mediator.nUnitTest.PropertyTraceNTest
 {
+    [TestFixture]
     public class CreatePropertyTraceCommandHandlerTests
     {
-        [Fact]
+        [Test]
         public async Task Handle_CreatesPropertyTrace_ReturnsOkResultAndValidatesSavedData()
         {
             // Arrange
@@ -41,16 +43,14 @@ namespace RealEstate.Mediator.Test.CreatePropertyTrace
             ActionResult result = await handler.Handle(request, CancellationToken.None);
 
             // Assert
-            OkObjectResult okResult = Assert.IsType<OkObjectResult>(result);
-            PropertyTrace? createdPropertyTrace = await context.PropertyTraces.FirstOrDefaultAsync(pt => pt.IdProperty == idProperty);
+            Assert.That(result, Is.TypeOf<OkObjectResult>());
+            PropertyTrace createdPropertyTrace = await context.PropertyTraces.FirstOrDefaultAsync(pt => pt.IdProperty == idProperty);
             Assert.NotNull(createdPropertyTrace);
-            Assert.Equal(propertyTraceDto.Name, createdPropertyTrace.Name);
-            Assert.Equal(propertyTraceDto.DateSale, createdPropertyTrace.DateSale);
-            Assert.Equal(propertyTraceDto.Tax, createdPropertyTrace.Tax);
-            Assert.Equal(propertyTraceDto.Value, createdPropertyTrace.Value);
-            Assert.Equal(propertyTraceDto.IdProperty, createdPropertyTrace.IdProperty);
+            Assert.That(createdPropertyTrace.Name, Is.EqualTo(propertyTraceDto.Name));
+            Assert.That(createdPropertyTrace.DateSale, Is.EqualTo(propertyTraceDto.DateSale));
+            Assert.That(createdPropertyTrace.Tax, Is.EqualTo(propertyTraceDto.Tax));
+            Assert.That(createdPropertyTrace.Value, Is.EqualTo(propertyTraceDto.Value));
+            Assert.That(createdPropertyTrace.IdProperty, Is.EqualTo(propertyTraceDto.IdProperty));
         }
-
     }
-
 }

@@ -1,9 +1,13 @@
-﻿
-namespace RealEstate.Mediator.Test.CreateProperty
+﻿using MediatR;
+using RealEstate.Mediator.Commands.PropertyCommand;
+using RealEstate.Mediator.Handlers.PropertyHandler;
+
+namespace RealEstate.Mediator.nUnitTest.PropertyNTest
 {
+    [TestFixture]
     public class CreatePropertyCommandHandlerTests
     {
-        [Fact]
+        [Test]
         public async Task Handle_ValidRequest_ReturnsOkResultAndValidatesSavedData()
         {
             // Arrange
@@ -46,17 +50,17 @@ namespace RealEstate.Mediator.Test.CreateProperty
             ActionResult result = await handler.Handle(request, CancellationToken.None);
 
             // Assert
-            OkObjectResult okResult = Assert.IsType<OkObjectResult>(result);
-            Property? addedProperty = await context.Properties.FindAsync(propertyId);
-            Assert.NotNull(addedProperty);
-            Assert.Equal(propertyDto.Name, addedProperty.Name);
-            Assert.Equal(propertyDto.Address, addedProperty.Address);
-            Assert.Equal(propertyDto.Price, addedProperty.Price);
-            Assert.Equal(propertyDto.CodeInternal, addedProperty.CodeInternal);
-            Assert.Equal(propertyDto.Year, addedProperty.Year);
+            Assert.That(result, Is.TypeOf<OkObjectResult>());
+            Property addedProperty = await context.Properties.FindAsync(propertyId);
+            Assert.IsNotNull(addedProperty);
+            Assert.That(addedProperty.Name, Is.EqualTo(propertyDto.Name));
+            Assert.That(addedProperty.Address, Is.EqualTo(propertyDto.Address));
+            Assert.That(addedProperty.Price, Is.EqualTo(propertyDto.Price));
+            Assert.That(addedProperty.CodeInternal, Is.EqualTo(propertyDto.CodeInternal));
+            Assert.That(addedProperty.Year, Is.EqualTo(propertyDto.Year));
         }
 
-        [Fact]
+        [Test]
         public async Task Handle_NonExistentOwner_ReturnsNotFoundResult()
         {
             // Arrange
@@ -85,14 +89,14 @@ namespace RealEstate.Mediator.Test.CreateProperty
             ActionResult result = await handler.Handle(request, CancellationToken.None);
 
             // Assert
-            _ = Assert.IsType<NotFoundObjectResult>(result);
-            NotFoundObjectResult notFoundObjectResult = Assert.IsType<NotFoundObjectResult>(result);
-            string? message = notFoundObjectResult.Value?.GetType().GetProperty("Message")?.GetValue(notFoundObjectResult.Value, null) as string;
-            Assert.Equal("The Owner does not exist.", message);
+            Assert.That(result, Is.TypeOf<NotFoundObjectResult>());
+            NotFoundObjectResult notFoundObjectResult = (NotFoundObjectResult)result;
+            string message = (string)notFoundObjectResult.Value.GetType().GetProperty("Message")?.GetValue(notFoundObjectResult.Value, null);
+            Assert.That(message, Is.EqualTo("The Owner does not exist."));
         }
 
-        [Fact]
-        public async Task Handle_NullProperty_ThrowsEntityNullException()
+        [Test]
+        public void Handle_NullProperty_ThrowsEntityNullException()
         {
             // Arrange
             CreatePropertyDto propertyDto = new()
@@ -117,8 +121,8 @@ namespace RealEstate.Mediator.Test.CreateProperty
 
             CreatePropertyCommand request = new(propertyDto);
 
-            // Act y Assert
-            _ = await Assert.ThrowsAsync<EntityNullException>(async () => await handler.Handle(request, CancellationToken.None));
+            // Act and Assert
+            _ = Assert.ThrowsAsync<EntityNullException>(async () => await handler.Handle(request, CancellationToken.None));
         }
     }
 }
