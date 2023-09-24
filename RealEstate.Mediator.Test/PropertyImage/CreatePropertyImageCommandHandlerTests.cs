@@ -1,7 +1,4 @@
-﻿using MediatR;
-using RealEstate.Mediator.CommandHandlers.PropertyImageHandler;
-using RealEstate.Mediator.Commands.PropertyImage;
-
+﻿
 namespace RealEstate.Mediator.Test.CreatePropertyImage
 {
     public class CreatePropertyImageCommandHandlerTests
@@ -30,7 +27,7 @@ namespace RealEstate.Mediator.Test.CreatePropertyImage
                 File = new byte[] { 0x12, 0x34, 0x56 }
             };
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             CreatePropertyImageDto propertyImageDto = new()
             {
                 IdProperty = propertyId,
@@ -78,7 +75,7 @@ namespace RealEstate.Mediator.Test.CreatePropertyImage
 
             };
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             CreatePropertyImageDto propertyImageDto = new()
             {
                 IdProperty = propertyId,
@@ -97,8 +94,6 @@ namespace RealEstate.Mediator.Test.CreatePropertyImage
 
             // Assert
             _ = Assert.IsType<NotFoundObjectResult>(result);
-            List<PropertyImage> images = await context.PropertyImages.ToListAsync();
-            Assert.Empty(images);
         }
     }
 

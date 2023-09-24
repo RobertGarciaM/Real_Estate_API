@@ -8,10 +8,10 @@ namespace RealEstate.Mediator.QueryHandlers.Owner
 {
     internal class GetPagedOwnersCommandHandler : IRequestHandler<GetPagedOwnersQuery, IEnumerable<OwnerDto>>
     {
-        private readonly InMemoryDbContext _context;
+        private readonly RealEstateDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetPagedOwnersCommandHandler(InMemoryDbContext context, IMapper mapper)
+        public GetPagedOwnersCommandHandler(RealEstateDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

@@ -1,5 +1,4 @@
-﻿using MediatR;
-using RealEstate.Mediator.CommandHandlers.PropertyImageHandler;
+﻿
 
 namespace RealEstate.Mediator.Test.UpdatePropertyImage
 {
@@ -9,7 +8,7 @@ namespace RealEstate.Mediator.Test.UpdatePropertyImage
         public async Task Handle_ValidRequest_ReturnsOkResultAndValidatesUpdatedData()
         {
             // Arrange
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             MapperConfiguration mapperConfig = new(cfg => cfg.AddProfile(new AutoMapperProfile()));
             IMapper mapper = mapperConfig.CreateMapper();
             Mock<IFormFile> formFileMock = new();
@@ -71,7 +70,7 @@ namespace RealEstate.Mediator.Test.UpdatePropertyImage
             _ = formFileMock.Setup(file => file.ContentType).Returns("image/jpeg");
             _ = formFileMock.Setup(file => file.OpenReadStream()).Returns(new MemoryStream());
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             PropertyImage existingPropertyImage = new()
             {
                 IdPropertyImage = propertyImageId,
@@ -121,7 +120,7 @@ namespace RealEstate.Mediator.Test.UpdatePropertyImage
             _ = formFileMock.Setup(file => file.ContentType).Returns("image/jpeg");
             _ = formFileMock.Setup(file => file.OpenReadStream()).Returns(new MemoryStream());
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             UpdatePropertyImagesDto updatedPropertyImageDto = new()
             {
                 PropertyImageId = propertyImageId,

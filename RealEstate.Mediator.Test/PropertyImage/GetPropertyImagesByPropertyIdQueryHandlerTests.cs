@@ -21,7 +21,7 @@ namespace RealEstate.Mediator.Test.GetPropertyImage
                 }
             };
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             await context.PropertyImages.AddRangeAsync(propertyImagesData);
             _ = await context.SaveChangesAsync();
 

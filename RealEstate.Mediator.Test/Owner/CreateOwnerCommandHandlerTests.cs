@@ -8,7 +8,7 @@ namespace RealEstate.Mediator.Test.CreateOwner
         public async Task Handle_CreateOwner_ReturnsOkResult()
         {
             // Arrange
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             Mock<IMapper> mapperMock = new();
             Mock<IFormFile> formFileMock = new();
             _ = formFileMock.Setup(file => file.FileName).Returns("image.jpg");
@@ -60,7 +60,7 @@ namespace RealEstate.Mediator.Test.CreateOwner
         public async Task Handle_NullOwner_ThrowsEntityNullException()
         {
             // Arrange
-            InMemoryDbContext ownerRepositoryMock = new();
+            RealEstateDbContext ownerRepositoryMock = new();
             Mock<IMapper> mapperMock = new();
 
             _ = mapperMock.Setup(mapper => mapper.Map<Owner>(It.IsAny<CreateOwnerDto>()))

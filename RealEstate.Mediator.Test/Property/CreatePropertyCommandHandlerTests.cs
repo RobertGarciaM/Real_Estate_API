@@ -1,7 +1,4 @@
-﻿using MediatR;
-using RealEstate.Mediator.Commands.PropertyCommand;
-using RealEstate.Mediator.Handlers.PropertyHandler;
-
+﻿
 namespace RealEstate.Mediator.Test.CreateProperty
 {
     public class CreatePropertyCommandHandlerTests
@@ -22,7 +19,7 @@ namespace RealEstate.Mediator.Test.CreateProperty
                 Year = 2022
             };
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             Mock<IMediator> mediatorMock = new();
             _ = mediatorMock.Setup(mediator => mediator.Send(It.IsAny<CheckOwnerExistsQuery>(), CancellationToken.None))
                             .ReturnsAsync(ownerExists);
@@ -73,7 +70,7 @@ namespace RealEstate.Mediator.Test.CreateProperty
                 Year = 2022
             };
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             Mock<IMediator> mediatorMock = new();
             _ = mediatorMock.Setup(mediator => mediator.Send(It.IsAny<CheckOwnerExistsQuery>(), CancellationToken.None))
                 .ReturnsAsync(ownerExists);
@@ -91,7 +88,7 @@ namespace RealEstate.Mediator.Test.CreateProperty
             _ = Assert.IsType<NotFoundObjectResult>(result);
             NotFoundObjectResult notFoundObjectResult = Assert.IsType<NotFoundObjectResult>(result);
             string? message = notFoundObjectResult.Value?.GetType().GetProperty("Message")?.GetValue(notFoundObjectResult.Value, null) as string;
-            Assert.Equal("The Owner does not exists.", message);
+            Assert.Equal("The Owner does not exist.", message);
         }
 
         [Fact]
@@ -107,7 +104,7 @@ namespace RealEstate.Mediator.Test.CreateProperty
                 Year = 2022
             };
             bool ownerExists = true;
-            InMemoryDbContext context = new();
+            RealEstateDbContext context = new();
             Mock<IMapper> mapperMock = new();
             Mock<IMediator> mediatorMock = new();
             _ = mediatorMock.Setup(mediator => mediator.Send(It.IsAny<CheckOwnerExistsQuery>(), CancellationToken.None))

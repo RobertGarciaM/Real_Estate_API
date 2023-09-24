@@ -1,6 +1,4 @@
-﻿using RealEstate.Mediator.CommandHandlers.PropertyImageHandler;
-using RealEstate.Mediator.Commands.PropertyImageCommand;
-
+﻿
 namespace RealEstate.Mediator.Test.DeletePropertyImage
 {
     public class DeletePropertyImagesByPropertyIdCommandHandlerTests
@@ -11,7 +9,7 @@ namespace RealEstate.Mediator.Test.DeletePropertyImage
             // Arrange
             Guid propertyId = Guid.NewGuid();
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             List<PropertyImage> propertyImagesToDelete = new()
             {
                 new PropertyImage { IdPropertyImage = Guid.NewGuid(),
@@ -50,7 +48,7 @@ namespace RealEstate.Mediator.Test.DeletePropertyImage
             // Arrange
             Guid propertyId = Guid.NewGuid();
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             DeletePropertyImagesByPropertyIdCommandHandler handler = new(context);
             DeletePropertyImagesByPropertyIdCommand request = new() { PropertyId = propertyId };
 

@@ -8,10 +8,10 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyImageHandler
 {
     internal class UpdatePropertyImageCommandHandler : IRequestHandler<UpdatePropertyImageCommand, ActionResult>
     {
-        private readonly InMemoryDbContext _context;
+        private readonly RealEstateDbContext _context;
         private readonly IMapper _mapper;
 
-        public UpdatePropertyImageCommandHandler(InMemoryDbContext context, IMapper mapper)
+        public UpdatePropertyImageCommandHandler(RealEstateDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

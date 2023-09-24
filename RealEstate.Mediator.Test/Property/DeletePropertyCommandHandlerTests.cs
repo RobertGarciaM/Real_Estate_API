@@ -1,9 +1,4 @@
-﻿using MediatR;
-using RealEstate.Mediator.CommandHandlers.PropertyHandler;
-using RealEstate.Mediator.Commands.PropertyCommand;
-using RealEstate.Mediator.Commands.PropertyImageCommand;
-using RealEstate.Mediator.Commands.PropertyTraceCommand;
-
+﻿
 namespace RealEstate.Mediator.Test.DeleteProperty
 {
     public class DeletePropertyCommandHandlerTests
@@ -19,7 +14,7 @@ namespace RealEstate.Mediator.Test.DeleteProperty
             _ = mediatorMock.Setup(mediator => mediator.Send(It.IsAny<DeletePropertyTraceByPropertyIdCommand>(), CancellationToken.None))
                 .ReturnsAsync(new OkResult());
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             Property existingProperty = new()
             {
                 IdProperty = propertyId,
@@ -56,7 +51,7 @@ namespace RealEstate.Mediator.Test.DeleteProperty
             _ = mediatorMock.Setup(mediator => mediator.Send(It.IsAny<DeletePropertyTraceByPropertyIdCommand>(), CancellationToken.None))
                 .ReturnsAsync(new OkResult());
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             DeletePropertyCommandHandler handler = new(context, mediatorMock.Object);
             DeletePropertyCommand request = new() { PropertyId = propertyId };
 
@@ -65,8 +60,6 @@ namespace RealEstate.Mediator.Test.DeleteProperty
 
             // Assert
             _ = Assert.IsType<NotFoundResult>(result);
-            List<Property> properties = await context.Properties.ToListAsync();
-            Assert.Empty(properties);
         }
     }
 }

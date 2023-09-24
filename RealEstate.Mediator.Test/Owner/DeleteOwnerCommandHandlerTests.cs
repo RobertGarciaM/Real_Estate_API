@@ -6,7 +6,7 @@
         public async Task Handle_ExistingOwner_ReturnsOkResult()
         {
             // Arrange
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             Owner owner = new()
             {
                 IdOwner = Guid.NewGuid(),
@@ -35,7 +35,7 @@
         public async Task Handle_NonExistingOwner_ReturnsNotFoundResult()
         {
             // Arrange
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             Owner owner = new()
             {
                 IdOwner = Guid.NewGuid(),

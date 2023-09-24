@@ -8,10 +8,10 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyHandler
 {
     internal class DeletePropertyCommandHandler : IRequestHandler<DeletePropertyCommand, ActionResult>
     {
-        private readonly InMemoryDbContext _context;
+        private readonly RealEstateDbContext _context;
         private readonly IMediator _mediator;
 
-        public DeletePropertyCommandHandler(InMemoryDbContext context, IMediator mediator)
+        public DeletePropertyCommandHandler(RealEstateDbContext context, IMediator mediator)
         {
             _context = context;
             _mediator = mediator;

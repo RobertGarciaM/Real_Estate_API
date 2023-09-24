@@ -6,10 +6,10 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyTraceHanlder
 {
     internal class DeletePropertyTraceCommandHandler : IRequestHandler<DeletePropertyTraceCommand, ActionResult>
     {
-        private readonly InMemoryDbContext _context;
+        private readonly RealEstateDbContext _context;
         private readonly IMediator _mediator;
 
-        public DeletePropertyTraceCommandHandler(InMemoryDbContext context, IMediator mediator)
+        public DeletePropertyTraceCommandHandler(RealEstateDbContext context, IMediator mediator)
         {
             _context = context;
             _mediator = mediator;

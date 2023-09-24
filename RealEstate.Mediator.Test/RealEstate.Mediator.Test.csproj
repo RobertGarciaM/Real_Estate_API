@@ -30,8 +30,4 @@
     <ProjectReference Include="..\RealEstate.Mediator\RealEstate.Mediator.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
-  </ItemGroup>
-
 </Project>

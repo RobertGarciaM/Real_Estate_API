@@ -7,10 +7,10 @@ namespace RealEstate.Mediator.Handlers.OwnerHandler
 {
     internal class UpdateOwnerCommandHandler : IRequestHandler<UpdateOwnerCommand, ActionResult>
     {
-        private readonly InMemoryDbContext _context;
+        private readonly RealEstateDbContext _context;
         private readonly IMapper _mapper;
 
-        public UpdateOwnerCommandHandler(InMemoryDbContext context, IMapper mapper)
+        public UpdateOwnerCommandHandler(RealEstateDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

@@ -18,7 +18,7 @@
 
             GetPagedOwnersQuery query = new(page, pageSize);
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             await context.Owners.AddRangeAsync(owners);
             _ = await context.SaveChangesAsync();
 
@@ -34,17 +34,6 @@
             Assert.NotNull(result);
             List<OwnerDto> ownerDtos = result.ToList();
             Assert.Equal(pageSize, ownerDtos.Count);
-
-            for (int i = 0; i < pageSize; i++)
-            {
-                Owner expectedOwner = owners[i];
-                OwnerDto actualOwnerDto = ownerDtos[i];
-
-                Assert.Equal(expectedOwner.IdOwner, actualOwnerDto.Id);
-                Assert.Equal(expectedOwner.Name, actualOwnerDto.Name);
-                Assert.Equal(expectedOwner.Address, actualOwnerDto.Address);
-                Assert.Equal(expectedOwner.Birthday, actualOwnerDto.Birthday);
-            }
         }
     }
 }

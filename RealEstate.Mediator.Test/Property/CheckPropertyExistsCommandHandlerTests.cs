@@ -23,7 +23,7 @@
                     Year = 2022 }
             }.AsQueryable();
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             await context.Properties.AddRangeAsync(properties);
             _ = await context.SaveChangesAsync();
 
@@ -42,7 +42,7 @@
         {
             // Arrange
             Guid propertyId = Guid.NewGuid();
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
 
             CheckPropertyExistsCommandHandler handler = new(context);
             CheckPropertyExistsCommand query = new(propertyId);

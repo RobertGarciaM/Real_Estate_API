@@ -14,7 +14,7 @@ namespace RealEstate.Mediator.Test.OwnerHandler
             _ = formFileMock.Setup(file => file.ContentType).Returns("image/jpeg");
             _ = formFileMock.Setup(file => file.OpenReadStream()).Returns(new MemoryStream());
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             MapperConfiguration mapperConfig = new(cfg => cfg.AddProfile(new AutoMapperProfile()));
             IMapper mapper = mapperConfig.CreateMapper();
 
@@ -60,7 +60,7 @@ namespace RealEstate.Mediator.Test.OwnerHandler
         public async Task Handle_ExistingOwner_ReturnsOkResult()
         {
             // Arrange
-            DbContextOptions<InMemoryDbContext> options = new DbContextOptionsBuilder<InMemoryDbContext>()
+            DbContextOptions<RealEstateDbContext> options = new DbContextOptionsBuilder<RealEstateDbContext>()
                 .UseInMemoryDatabase(databaseName: "RealEstateDataBase")
                 .Options;
 
@@ -71,7 +71,7 @@ namespace RealEstate.Mediator.Test.OwnerHandler
             _ = formFileMock.Setup(file => file.OpenReadStream()).Returns(new MemoryStream());
 
 
-            using InMemoryDbContext context = new();
+            using RealEstateDbContext context = new();
             Guid ownerId = Guid.NewGuid();
             Mock<IMapper> mapperMock = new();
 
@@ -113,7 +113,7 @@ namespace RealEstate.Mediator.Test.OwnerHandler
         {
             // Arrange
             Guid ownerId = Guid.NewGuid();
-            InMemoryDbContext ownerRepositoryMock = new();
+            RealEstateDbContext ownerRepositoryMock = new();
             Mock<IMapper> mapperMock = new();
 
             UpdateOwnerDto updateOwnerDto = new()

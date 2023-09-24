@@ -21,7 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{1AF2D8D0-712
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{BDE813CD-E716-4DEB-8FD2-3EC9270DF542}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstate.Mediator.Test", "RealEstate.Mediator.Test\RealEstate.Mediator.Test.csproj", "{816A1746-01C3-4EBF-BB5D-6DEDBD0CE82C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealEstate.Mediator.Test", "RealEstate.Mediator.Test\RealEstate.Mediator.Test.csproj", "{816A1746-01C3-4EBF-BB5D-6DEDBD0CE82C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstate.Mediator.nUnitTest", "RealEstate.Mediator.nUnitTest\RealEstate.Mediator.nUnitTest.csproj", "{33AC7D97-C442-4B49-B909-3D4AC7275CDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{816A1746-01C3-4EBF-BB5D-6DEDBD0CE82C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{816A1746-01C3-4EBF-BB5D-6DEDBD0CE82C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{816A1746-01C3-4EBF-BB5D-6DEDBD0CE82C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33AC7D97-C442-4B49-B909-3D4AC7275CDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33AC7D97-C442-4B49-B909-3D4AC7275CDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33AC7D97-C442-4B49-B909-3D4AC7275CDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33AC7D97-C442-4B49-B909-3D4AC7275CDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{60E617E6-1FB5-42D0-B3A7-B8BEEA91B51B} = {A389C1B1-9204-4AAC-BAC8-FD4A96788C25}
 		{35D07ECC-8916-4D4D-A42A-5994CE0BF52F} = {34EFD8C9-35D0-4566-A40C-81D77AF57A4F}
 		{816A1746-01C3-4EBF-BB5D-6DEDBD0CE82C} = {BDE813CD-E716-4DEB-8FD2-3EC9270DF542}
+		{33AC7D97-C442-4B49-B909-3D4AC7275CDF} = {BDE813CD-E716-4DEB-8FD2-3EC9270DF542}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {983D1208-75CA-4986-9AAE-2A593D015190}

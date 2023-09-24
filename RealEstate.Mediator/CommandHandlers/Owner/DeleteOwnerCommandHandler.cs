@@ -6,9 +6,9 @@ namespace RealEstate.Mediator.Handlers.OwnerHandler
 {
     internal class DeleteOwnerCommandHandler : IRequestHandler<DeleteOwnerCommand, ActionResult>
     {
-        private readonly InMemoryDbContext _context;
+        private readonly RealEstateDbContext _context;
 
-        public DeleteOwnerCommandHandler(InMemoryDbContext context)
+        public DeleteOwnerCommandHandler(RealEstateDbContext context)
         {
             _context = context;
         }

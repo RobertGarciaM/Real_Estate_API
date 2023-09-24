@@ -52,7 +52,7 @@ namespace Real_Estate_API.Controllers
         /// <response code="401">Unauthorized. The user does not have the necessary permissions.</response>
         /// <response code="404">Not Found. The specified property trace does not exist.</response>
         /// <response code="500">Internal server error. An unexpected error occurred while processing the request.</response>
-        [HttpPut("{id}")]
+        [HttpPut()]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdatePropertyTrace([FromForm] UpdatePropertyTraceDto dto)
         {

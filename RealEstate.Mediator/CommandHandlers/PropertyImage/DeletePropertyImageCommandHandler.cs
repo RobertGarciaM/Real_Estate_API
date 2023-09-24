@@ -7,9 +7,9 @@ namespace RealEstate.Mediator.CommandHandlers.PropertyImageHandler
 {
     internal class DeletePropertyImageCommandHandler : IRequestHandler<DeletePropertyImageCommand, ActionResult>
     {
-        private readonly InMemoryDbContext _context;
+        private readonly RealEstateDbContext _context;
 
-        public DeletePropertyImageCommandHandler(InMemoryDbContext context)
+        public DeletePropertyImageCommandHandler(RealEstateDbContext context)
         {
             _context = context;
         }
